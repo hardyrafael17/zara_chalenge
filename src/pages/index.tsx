@@ -4,16 +4,14 @@ import { Link, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
 import Hero from '../components/Hero';
 import './login.module.css';
-import AttributeGrid from '../components/AttributeGrid';
-import Layout from '../components/Layout';
-import FormInputField from '../components/FormInputField/FormInputField';
-import Button from '../components/Button';
+import { Layout } from '../components/Layout/Layout';
 import * as styles from './index.module.css';
+import "../i18n";
 
 export const Head: HeadFC = () => <title>Home Page</title>
 
 
-const LoginPage = (props?) => {
+const LoginPage = (props) => {
   const initialState = {
     email: '',
     password: '',
@@ -78,66 +76,14 @@ const LoginPage = (props?) => {
 
   return (
     <Layout disablePaddingBottom>
-     <Hero
+      <Hero
         maxWidth={'500px'}
         image={'/banner1.png'}
         title={'Essentials for a cold winter'}
         subtitle={'Discover Autumn Winter 2021'}
         ctaText={'shop now'}
         ctaAction={goToShop}
-      /> 
-       <div className={styles.root}>
-         <div className={styles.loginFormContainer}>
-           <h1 className={styles.loginTitle}>Login</h1>
-           <span className={styles.subtitle}>
-             Please enter your e-mail and password
-           </span>
-           <form
-             noValidate
-             className={styles.loginForm}
-             onSubmit={(e) => handleSubmit(e)}
-           >
-            <FormInputField
-               id={'email'}
-               value={loginForm.email}
-               handleChange={(id, e) => handleChange(id, e)}
-               type={'email'}
-               labelName={'Email'}
-               error={errorForm.email}
-             />
-
-            <FormInputField
-              id={'password'}
-              value={loginForm.password}
-              handleChange={(id, e) => handleChange(id, e)}
-              type={'password'}
-              labelName={'Password'}
-              error={errorForm.password}
-            />
-            <div className={styles.forgotPasswordContainer}>
-              <Link to={'/forgot'} className={styles.forgotLink}>
-                Forgot Password
-              </Link>
-            </div>
-
-            <Button fullWidth type={'submit'} level={'primary'}>
-              LOG IN
-            </Button>
-            <span className={styles.createLink}>New Customer? </span>
-            <Button
-              type={'button'}
-              onClick={() => navigate('/signup')}
-              fullWidth
-              level={'secondary'}
-            >
-              create an account
-            </Button>
-          </form>
-        </div>
-        <div>
-          <AttributeGrid />
-        </div>
-      </div>
+      />
     </Layout>
   );
 };

@@ -2,7 +2,13 @@ import React from 'react';
 import Attribute from '../Attribute';
 import * as styles from './AttributeGrid.module.css';
 
-const AttributeGrid = (props) => {
+export type AttributeGridProps = {
+  icon: string;
+  title: string;
+  subtitle: string;
+}
+
+const AttributeGrid = (props: AttributeGridProps) => {
   return (
     <div className={styles.root}>
       <Attribute

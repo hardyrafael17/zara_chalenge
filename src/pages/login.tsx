@@ -23,7 +23,7 @@ const LoginPage = (props) => {
   const [errorForm, setErrorForm] = useState(errorState);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (id, e) => {
+  const handleChange = (id: any, e: any) => {
     const tempForm = { ...loginForm, [id]: e };
     setLoginForm(tempForm);
   };
@@ -127,7 +127,7 @@ const LoginPage = (props) => {
         </div>
 
         <div className={styles.attributeGridContainer}>
-          <AttributeGrid />
+          <AttributeGrid icon={''} title={''} subtitle={''} />
         </div>
       </div>
     </Layout>

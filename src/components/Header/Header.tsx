@@ -15,7 +15,7 @@ import MiniCart from '../MiniCart';
 import MobileNavigation from '../MobileNavigation';
 import * as styles from './Header.module.css';
 
-const Header = (prop) => {
+export const Header = (prop) => {
   const [showMiniCart, setShowMiniCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
@@ -81,6 +81,7 @@ const Header = (prop) => {
   return (
     <div className={styles.root}>
       {/* <div className={styles.headerMessageContainer}>
+        // Banner message about worldwide shipping
         <span>{bannerMessage}</span>
       </div> */}
       <Container size={'large'} spacing={'min'}>
