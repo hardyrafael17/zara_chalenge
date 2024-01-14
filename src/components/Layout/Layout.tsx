@@ -9,7 +9,7 @@ import * as styles from './Layout.module.css';
 // CSS not modular here to provide global styles
 import './Globals.css';
 
-export const Layout = ({ props, children, disablePaddingBottom = true }) => {
+const Layout = ({ props, children, disablePaddingBottom = true }) => {
   return (
     <>
       <Helmet>
@@ -42,3 +42,4 @@ export const Layout = ({ props, children, disablePaddingBottom = true }) => {
 //   children: PropTypes.node.isRequired,
 // };
 
+export default Layout;
