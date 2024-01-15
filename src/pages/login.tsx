@@ -8,7 +8,7 @@ import Layout from '../components/Layout/Layout';
 import FormInputField from '../components/FormInputField/FormInputField';
 import Button from '../components/Button';
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const initialState = {
     email: '',
     password: '',

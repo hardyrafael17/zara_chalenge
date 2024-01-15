@@ -9,7 +9,7 @@ import * as styles from './Layout.module.css';
 // CSS not modular here to provide global styles
 import './Globals.css';
 
-const Layout = ({ props, children, disablePaddingBottom = true }) => {
+const Layout = ({ children, disablePaddingBottom = false }) => {
   return (
     <>
       <Helmet>

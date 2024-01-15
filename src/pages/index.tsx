@@ -4,7 +4,7 @@ import { Link, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
 import Hero from '../components/Hero';
 import './login.module.css';
-import  Layout from '../components/Layout/Layout';
+import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
 import "../i18n";
 
@@ -75,16 +75,16 @@ const LoginPage = (props) => {
   };
 
   return (
-      <Layout disablePaddingBottom>
-        <Hero
+    <Layout disablePaddingBottom={true} >
+      <Hero
           maxWidth={'500px'}
           image={'/banner1.png'}
           title={'Essentials for a cold winter'}
           subtitle={'Discover Autumn Winter 2021'}
           ctaText={'shop now'}
           ctaAction={goToShop}
-        />
-      </Layout>
+      />
+    </Layout>
   );
 };
 

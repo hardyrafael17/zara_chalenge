@@ -17,7 +17,7 @@ module.exports = {
         "path": "./src/pages/"
       },
       __key: "pages"
-    },
+    } ,
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
