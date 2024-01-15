@@ -3,19 +3,28 @@ module.exports = {
     title: `Gatsby Sydney Ecommerce Theme`,
     siteUrl: `https://jamm.matter.design`,
   },
-  plugins: [
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Gatsby Sydney Ecommerce Theme`,
-        short_name: `Sydney`,
-        start_url: `/`,
-        background_color: `#000000`,
-        theme_color: `#ffffff`,
-        display: `standalone`,
-        icon: 'src/assets/favicon.png',
-      },
+  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      "name": "images",
+      "path": "./src/images/"
     },
-    'gatsby-plugin-netlify',
-  ],
+    __key: "images"
+  }, {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "pages",
+        "path": "./src/pages/"
+      },
+      __key: "pages"
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `jsx`, // defaults to "React"
+        allExtensions: true, // defaults to false
+      },
+    }
+  ]
 };
