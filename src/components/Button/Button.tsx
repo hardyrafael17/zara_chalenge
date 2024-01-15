@@ -17,6 +17,20 @@ const Button = ({
   link,
   fullWidth,
   theme,
+}: {
+  children: React.ReactNode,
+  href: string,
+  target: string,
+  level: string,
+  type: "submit" | "reset" | "button" | undefined,
+  size: string,
+  disabled: boolean,
+  onClick: () => void,
+  className: string,
+  flat: boolean,
+  link: boolean,
+  fullWidth: boolean,
+  theme: string,
 }) => {
   const classes = level ? [styles.button] : [styles.link];
 

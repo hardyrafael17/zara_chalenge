@@ -11,7 +11,7 @@ import "../i18n";
 export const Head: HeadFC = () => <title>Home Page</title>
 
 
-const LoginPage = (props) => {
+const LoginPage = (props?: PageProps) => {
   const initialState = {
     email: '',
     password: '',
@@ -26,7 +26,7 @@ const LoginPage = (props) => {
   const [errorForm, setErrorForm] = useState(errorState);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (id, e) => {
+  const handleChange = (id: string, e: Event) => {
     const tempForm = { ...loginForm, [id]: e };
     setLoginForm(tempForm);
   };
@@ -75,15 +75,14 @@ const LoginPage = (props) => {
   };
 
   return (
-    <Layout disablePaddingBottom={true} >
+    <Layout>
       <Hero
-          maxWidth={'500px'}
-          image={'/banner1.png'}
-          title={'Essentials for a cold winter'}
-          subtitle={'Discover Autumn Winter 2021'}
-          ctaText={'shop now'}
-          ctaAction={goToShop}
-      />
+        maxWidth={'500px'}
+        image={'/banner1.png'}
+        title={'Essentials for a cold winter'}
+        subtitle={'Discover Autumn Winter 2021'}
+        ctaText={'shop now'}
+        ctaAction={goToShop} ctaTo={'/shop'} />
     </Layout>
   );
 };

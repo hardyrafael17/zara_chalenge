@@ -2,8 +2,21 @@ import React from 'react';
 import * as styles from './Hero.module.css';
 import Button from '../Button';
 import { Link } from 'gatsby';
+import { t } from 'i18next';
 
-const Hero = (props) => {
+type HeroProps = {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaAction: () => void;
+  image?: string;
+  maxWidth?: string;
+  ctaStyle?: string;
+  ctaLink?: string;
+  ctaTo: string;
+  header?: string;
+};
+const Hero = (props: HeroProps) => {
   const {
     title,
     subtitle,
@@ -26,8 +39,10 @@ const Hero = (props) => {
           <Button
             className={`${styles.ctaButton} ${ctaStyle}`}
             level={'primary'}
-            onClick={ctaAction}
-          >
+            onClick={ctaAction} 
+            href={''} target={''} 
+            type={undefined}
+            size={''} disabled={false} flat={false} link={false} fullWidth={false} theme={''}          >
             {ctaText}
           </Button>
         )}
