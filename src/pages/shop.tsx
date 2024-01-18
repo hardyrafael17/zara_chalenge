@@ -13,9 +13,10 @@ import ProductCardGrid from '../components/ProductCardGrid';
 import { generateMockProductData } from '../helpers/mock';
 import Button from '../components/Button';
 import Config from '../config.json';
+import { graphql } from 'gatsby';
 
 const ShopPage = (props) => {
-  console.log(props)
+  console.log(props?.pageContext)
   const [showFilter, setShowFilter] = useState(false);
   const data = generateMockProductData(6, 'woman');
 
@@ -98,3 +99,19 @@ const ShopPage = (props) => {
 };
 
 export default ShopPage;
+
+// export const query = graphql`
+//   query ($language: String!) {
+//     locales: allLocale(
+//       filter: { ns: { in: ["index"] }, language: { eq: $language } }
+//     ) {
+//       edges {
+//         node {
+//           ns
+//           data
+//           language
+//         }
+//       }
+//     }
+//   }
+// `;

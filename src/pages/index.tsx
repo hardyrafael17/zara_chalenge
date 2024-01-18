@@ -8,14 +8,10 @@ import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 
-export const Head: HeadFC<{ title?: string }> = ({
-  title,
-}: {
-  title?: string;
-}) => <title>{title || 'Home Page'}</title>;
+export const Head: HeadFC<{ title?: string | undefined }> = (props) => <title>{props.title || 'Home Page'}</title>;
 
 const LoginPage = (props?: PageProps) => {
-  console.log(props?.pageContext);
+  props?.pageContext ? console.log(props.pageContext) : console.log('no page context');
   const { t, i18n } = useTranslation();
   const initialState = {
     email: '',

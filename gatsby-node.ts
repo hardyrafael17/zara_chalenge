@@ -1,38 +1,33 @@
-// https://stackoverflow.com/questions/63124432/how-do-i-configure-mini-css-extract-plugin-in-gatsby
+import type { CreatePageArgs, GatsbyNode } from 'gatsby';
 const fs = require('fs');
 const yaml = require('js-yaml');
 import path from 'path';
+import i18next from 'gatsby-plugin-react-i18next';
+import { readFileSync } from 'fs';
+import { kMaxLength } from 'buffer';
 
-exports.createPages = ({ actions }) => {
+exports.createPages = ({ actions }: CreatePageArgs) => {
   const { createPage } = actions;
-  const ymlDoc = yaml.load(
-    fs.readFileSync('./pageContent/index.yaml', 'utf-8')
-  );
-  ymlDoc.forEach(
-    (
-      element: { path: string; content: string; links: string },
-      index: number
-    ) => {
-      console.log(element.path, 'element path');
-      let component;
-      if (element.path === '/')
-        component = path.resolve(`./src/pages/index.tsx`);
-      else component = path.resolve(`./src/pages${element.path}.tsx`);
-      console.log(component)
-
-      createPage({
-        path: element.path,
-        component,
-        context: {
-          pageContent: element.content,
-          links: element.links,
-          test: 'context test',
-          pagePath: element.path,
-        },
-      });
+  // const ymlDoc = yaml.load(
+  //   fs.readFileSync('./pageContent/index.yaml', 'utf-8')
+  // );
+  createPage({
+    path: '/',
+    component: path.resolve('./src/pages/index.tsx'),
+    context: {
+      test: 'test', noMames: 'noMames'
     }
-  );
+  });
+
+  // path: "/",
+  // component: path.resolve("./src/pages/index.tsx"),
+  // context: {
+  //   test: "test"
+  // },
 };
+exports.onCreatePage = async ({ page, actions }) => {
+  console.log(page.path, "----->", page.path === "/" ? console.log(page) : null)
+}
 exports.onCreateWebpackConfig = (helper) => {
   const { stage, actions, getConfig } = helper;
   if (stage === 'develop' || stage === 'build-javascript') {
