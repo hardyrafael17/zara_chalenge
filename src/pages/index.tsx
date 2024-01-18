@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from "gatsby"
-import { Link, navigate } from 'gatsby';
+import { Link, graphql, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
 import Hero from '../components/Hero';
 import './login.module.css';
 import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
-import "../i18n";
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 export const Head: HeadFC = () => <title>Home Page</title>
 
 
 const LoginPage = (props?: PageProps) => {
+const { t, i18n } = useTranslation();
   const initialState = {
     email: '',
     password: '',
@@ -31,7 +32,7 @@ const LoginPage = (props?: PageProps) => {
     setLoginForm(tempForm);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     let validForm = true;
     const tempError = { ...errorForm };
@@ -73,14 +74,17 @@ const LoginPage = (props?: PageProps) => {
   const goToShop = () => {
     navigate('/shop');
   };
+  
+  let title = t("title");
+  let description = t("title");
 
   return (
     <Layout>
       <Hero
         maxWidth={'500px'}
         image={'/banner1.png'}
-        title={'Essentials for a cold winter'}
-        subtitle={'Discover Autumn Winter 2021'}
+        title={t("heroTitle") as string}
+        subtitle={t("heroText.description1") as string}
         ctaText={'shop now'}
         ctaAction={goToShop} ctaTo={'/shop'} />
     </Layout>
@@ -88,3 +92,19 @@ const LoginPage = (props?: PageProps) => {
 };
 
 export default LoginPage;
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(
+      filter: { ns: { in: ["index"] }, language: { eq: $language } }
+    ) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;

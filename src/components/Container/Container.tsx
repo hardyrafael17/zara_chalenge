@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as styles from './Container.module.css';
 
-const Container = ({ children, size, spacing, fullMobile }) => {
+const Container = ({ children, size, spacing, fullMobile }: { children: React.ReactNode, size: string, spacing: string, fullMobile?: boolean }) => {
   return (
     <div
       className={`
@@ -14,6 +14,6 @@ const Container = ({ children, size, spacing, fullMobile }) => {
       {children}
     </div>
   );
-};
+}
 
 export default Container;

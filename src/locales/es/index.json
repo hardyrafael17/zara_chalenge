@@ -1,0 +1,7 @@
+{
+  "heroTitle": "Welcome to react using react-i18next",
+  "heroText": {
+    "description1": "To get started, edit <1>src/App.js</1> and save to reload.",
+    "description2": "Switch language between english and german using buttons above."
+  }
+}

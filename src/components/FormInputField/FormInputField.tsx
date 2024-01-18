@@ -3,7 +3,24 @@ import React from 'react';
 import Icon from '../Icons/Icon';
 import * as styles from './FormInputField.module.css';
 
-const FormInputField = React.forwardRef((props, ref) => {
+interface FormInputFieldProps {
+  id: string;
+  type?: string;
+  labelName?: string;
+  value: string;
+  pattern?: string;
+  min?: number;
+  max?: number;
+  handleChange: (id: string, value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  note?: string;
+  error?: string;
+  required?: boolean;
+  icon?: string;
+}
+
+const FormInputField = React.forwardRef((props: FormInputFieldProps, ref) => {
   const {
     id,
     type = 'text',

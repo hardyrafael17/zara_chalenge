@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef, useRef } from 'react';
 import { Link, navigate } from 'gatsby';
 
 import { isAuth } from '../../helpers/general';
@@ -15,18 +15,20 @@ import MiniCart from '../MiniCart';
 import MobileNavigation from '../MobileNavigation';
 import * as styles from './Header.module.css';
 
-export const Header = (prop) => {
+export const Header = (prop: any) => {
   const [showMiniCart, setShowMiniCart] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
 
-  const [menu, setMenu] = useState();
-  const [activeMenu, setActiveMenu] = useState();
+  const [activeMenu, setActiveMenu] = useState<boolean | string | undefined>();
+  const [menu, setMenu] = useState<{
+    categoryLabel: string; submenu:
+    { menuLabel: string; menuLink: string; }[];
+  }[] | undefined>(undefined);
 
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState('');
 
-  const searchRef = createRef();
   const bannerMessage = 'Free shipping worldwide';
   const searchSuggestions = [
     'Oversize sweaters',
@@ -34,7 +36,11 @@ export const Header = (prop) => {
     'Candles Cinnamon',
   ];
 
-  const handleHover = (navObject) => {
+
+  const handleHover = (navObject: {
+    menuLabel: string; menuLink: string; category:
+    { categoryLabel: string; submenu: { menuLabel: string; menuLink: string; }[]; }[];
+  } | { menuLabel: string; menuLink: string; category: null; }) => {
     if (navObject.category) {
       setShowMenu(true);
       setMenu(navObject.category);
@@ -69,10 +75,12 @@ export const Header = (prop) => {
   }, []);
 
   //listen for show search and delay trigger of focus due to CSS visiblity property
+  const searchRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (showSearch === true) {
       setTimeout(() => {
-        searchRef.current.focus();
+        searchRef.current?.focus();
       }, 250);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,9 +106,8 @@ export const Header = (prop) => {
                 <Link
                   key={navObject.menuLink}
                   onMouseEnter={() => handleHover(navObject)}
-                  className={`${styles.navLink} ${
-                    activeMenu === navObject.menuLabel ? styles.activeLink : ''
-                  }`}
+                  className={`${styles.navLink} ${activeMenu === navObject.menuLabel ? styles.activeLink : ''
+                    }`}
                   to={navObject.menuLink}
                 >
                   {navObject.menuLabel}
@@ -131,14 +138,14 @@ export const Header = (prop) => {
             </button>
             <Link
               aria-label="Favorites"
-              href="/account/favorites"
+              to="/account/favorites"
               className={`${styles.iconContainer} ${styles.hideOnMobile}`}
             >
               <Icon symbol={'heart'}></Icon>
             </Link>
             <Link
               aria-label="Orders"
-              href={isAuth() ? '/login' : '/account/orders/'}
+              to={isAuth() ? '/login' : '/account/orders/'}
               className={`${styles.iconContainer} ${styles.hideOnMobile}`}
             >
               <Icon symbol={'user'}></Icon>
@@ -164,9 +171,8 @@ export const Header = (prop) => {
 
         {/* search container */}
         <div
-          className={`${styles.searchContainer} ${
-            showSearch === true ? styles.show : styles.hide
-          }`}
+          className={`${styles.searchContainer} ${showSearch === true ? styles.show : styles.hide
+            }`}
         >
           <h4>What are you looking for?</h4>
           <form className={styles.searchForm} onSubmit={(e) => handleSearch(e)}>
@@ -211,9 +217,8 @@ export const Header = (prop) => {
         role={'presentation'}
         onMouseLeave={() => setShowMenu(false)}
         onMouseEnter={() => setShowMenu(true)}
-        className={`${styles.menuContainer} ${
-          showMenu === true ? styles.show : ''
-        }`}
+        className={`${styles.menuContainer} ${showMenu === true ? styles.show : ''
+          }`}
       >
         <Container size={'large'} spacing={'min'}>
           <ExpandedMenu menu={menu} />

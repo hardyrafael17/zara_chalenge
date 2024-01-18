@@ -14,7 +14,7 @@ const BlogPage = (props) => {
   const blogData = generateMockBlogData(6);
 
   return (
-    <Layout disablePaddingBottom>
+    <Layout>
       <div className={styles.root}>
         <Hero
           maxWidth={'400px'}
