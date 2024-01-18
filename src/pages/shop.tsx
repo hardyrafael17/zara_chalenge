@@ -15,6 +15,7 @@ import Button from '../components/Button';
 import Config from '../config.json';
 
 const ShopPage = (props) => {
+  console.log(props)
   const [showFilter, setShowFilter] = useState(false);
   const data = generateMockProductData(6, 'woman');
 

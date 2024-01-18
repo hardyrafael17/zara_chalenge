@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { HeadFC, PageProps } from "gatsby"
+import type { HeadFC, PageProps } from 'gatsby';
 import { Link, graphql, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
 import Hero from '../components/Hero';
@@ -8,11 +8,15 @@ import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 
-export const Head: HeadFC = () => <title>Home Page</title>
-
+export const Head: HeadFC<{ title?: string }> = ({
+  title,
+}: {
+  title?: string;
+}) => <title>{title || 'Home Page'}</title>;
 
 const LoginPage = (props?: PageProps) => {
-const { t, i18n } = useTranslation();
+  console.log(props?.pageContext);
+  const { t, i18n } = useTranslation();
   const initialState = {
     email: '',
     password: '',
@@ -32,7 +36,7 @@ const { t, i18n } = useTranslation();
     setLoginForm(tempForm);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     let validForm = true;
     const tempError = { ...errorForm };
@@ -74,19 +78,21 @@ const { t, i18n } = useTranslation();
   const goToShop = () => {
     navigate('/shop');
   };
-  
-  let title = t("title");
-  let description = t("title");
+
+  let title = t('title');
+  let description = t('title');
 
   return (
     <Layout>
       <Hero
         maxWidth={'500px'}
         image={'/banner1.png'}
-        title={t("heroTitle") as string}
-        subtitle={t("heroText.description1") as string}
+        title={t('heroTitle') as string}
+        subtitle={t('heroText.description1') as string}
         ctaText={'shop now'}
-        ctaAction={goToShop} ctaTo={'/shop'} />
+        ctaAction={goToShop}
+        ctaTo={'/shop'}
+      />
     </Layout>
   );
 };
