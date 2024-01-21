@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Carousel } from 'primereact/carousel';
-import type { HeadFC, PageProps } from 'gatsby';
+import type { HeadFC, HeadProps, PageProps } from 'gatsby';
 import { Link, graphql, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
 import Hero from '../components/Hero';
@@ -8,22 +8,41 @@ import './login.module.css';
 import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
-import type { Config } from "../websiteContent"
+import type { Config } from '../websiteContent';
 import { businessConfig } from '../websiteContent';
 import { createStore, createEvent } from 'effector';
-import { useUnit } from 'effector-react'
+import { useUnit } from 'effector-react';
+import { title } from 'process';
+import { Helmet } from 'react-helmet';
 export const $business = createStore<Config>(businessConfig);
 export const setBusiness = createEvent<Config>();
 $business.on(setBusiness, (_, business) => business);
+import favion from '../images/icon.png';
+import dinoFavicon from "../images/icon.png"
 
-export const Head: HeadFC = () => {
-  console.log(this)
-  return <title>Home Page</title>
+export const Head = (props: HeadProps<{ title: string }>) => {
+  const favicon = '../images/icon.png';
+  return (
+    <>
+      {/* <Helmet */}
+      {/*   title="Molino Navarenas" */}
+      {/*   meta={[ */}
+      {/*     { name: 'description', content: '...' }, */}
+      {/*     { name: 'keywords', content: '....' }, */}
+      {/*   ]} */}
+      {/*   link={[ */}
+      {/*     { */}
+      {/*       rel: 'shortcut icon', */}
+      {/*       type: 'image/png', */}
+      {/*       href: `../images/icon.png`, */}
+      {/*     }, */}
+      {/*   ]} */}
+      {/* />{' '} */}
+    </>
+  );
 };
 
 const LoginPage = (props?: PageProps) => {
-console.log(props);
-console.log( "using header")
   const { t, i18n } = useTranslation();
   const initialState = {
     email: '',

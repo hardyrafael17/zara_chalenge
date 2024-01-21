@@ -1,35 +1,39 @@
-const { languages, defaultLanguage } = require('./src/languages')
+const { languages, defaultLanguage } = require('./src/languages');
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Sydney Ecommerce Theme`,
-    siteUrl: `http://localhost:8000`,
+    title: `Molino Navarenas`,
+    siteUrl: `https://www.molinonavarenas.com`,
+    defaultLanguage: `es`,
   },
-  plugins: ["gatsby-plugin-postcss",
-    "gatsby-plugin-image",
-    "gatsby-plugin-sitemap",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+  plugins: [
+    'gatsby-plugin-postcss',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sitemap',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        "name": "locale",
-        "path": "./src/locales/"
-      }
-    }, {
+        name: 'locale',
+        path: './src/locales/',
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "images",
-        "path": "./src/images/"
+        name: 'images',
+        path: './src/images/',
       },
-      __key: "images"
-    }, {
+      __key: 'images',
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "pages",
-        "path": "./src/pages/"
+        name: 'pages',
+        path: './src/pages/',
       },
-      __key: "pages"
+      __key: 'pages',
     },
     {
       resolve: `gatsby-plugin-typescript`,
@@ -44,17 +48,27 @@ module.exports = {
       options: {
         languages,
         defaultLanguage,
-        siteUrl: "http://localhost:8000"  ,
+        siteUrl: 'http://localhost:8000',
         i18nextOptions: {
-          // debug: true,
           fallbackLng: defaultLanguage,
           supportedLngs: languages,
           defaultNS: 'common',
           interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
-          }
+          },
         },
-      }
+      },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+      name: `Mike Kronk`,
+      short_name: `MK`,
+      start_url: `/`,
+      background_color: `#ffffff`,
+      theme_color: `#663399`,
+      display: `minimal-ui`,
+      icon: `src/images/icon.png`}, 
+    }
   ]
 };
