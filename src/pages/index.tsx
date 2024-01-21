@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Carousel } from 'primereact/carousel';
 import type { HeadFC, PageProps } from 'gatsby';
 import { Link, graphql, navigate } from 'gatsby';
 import { validateEmail, isEmpty } from '../helpers/general';
@@ -7,16 +8,30 @@ import './login.module.css';
 import Layout from '../components/Layout/Layout';
 import * as styles from './index.module.css';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
+import type { Config } from "../websiteContent"
+import { businessConfig } from '../websiteContent';
+import { createStore, createEvent } from 'effector';
+import { useUnit } from 'effector-react'
+export const $business = createStore<Config>(businessConfig);
+export const setBusiness = createEvent<Config>();
+$business.on(setBusiness, (_, business) => business);
 
-export const Head: HeadFC<{ title?: string | undefined }> = (props) => <title>{props.title || 'Home Page'}</title>;
+export const Head: HeadFC = () => {
+  console.log(this)
+  return <title>Home Page</title>
+};
 
 const LoginPage = (props?: PageProps) => {
-  props?.pageContext ? console.log(props.pageContext) : console.log('no page context');
+console.log(props);
+console.log( "using header")
   const { t, i18n } = useTranslation();
   const initialState = {
     email: '',
     password: '',
   };
+
+  const business = useUnit($business);
+  console.log(business);
 
   const errorState = {
     email: '',
@@ -71,12 +86,10 @@ const LoginPage = (props?: PageProps) => {
     }
   };
 
-  const goToShop = () => {
+  const gotoCta = () => {
+    // reserve //shop
     navigate('/shop');
   };
-
-  let title = t('title');
-  let description = t('title');
 
   return (
     <Layout>
@@ -85,10 +98,11 @@ const LoginPage = (props?: PageProps) => {
         image={'/banner1.png'}
         title={t('heroTitle') as string}
         subtitle={t('heroText.description1') as string}
-        ctaText={'shop now'}
-        ctaAction={goToShop}
+        ctaText={t('heroText.bookNow') as string}
+        ctaAction={gotoCta}
         ctaTo={'/shop'}
       />
+      <Carousel />
     </Layout>
   );
 };

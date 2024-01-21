@@ -29,8 +29,7 @@ const Layout = ({ children, disablePaddingBottom = false }:
 
       <Header />
       <main
-        className={`${styles.main} ${disablePaddingBottom === false ? styles.disablePaddingBottom : ''
-          }`}
+        className={`${styles.main} ${styles.disablePaddingBottom}`}
       >
         {children}
       </main>

@@ -7,6 +7,7 @@ import AddNotification from '../AddNotification';
 import Brand from '../Brand';
 import Container from '../Container';
 import Config from '../../config.json';
+import { businessConfig } from '../../websiteContent';
 import Drawer from '../Drawer';
 import ExpandedMenu from '../ExpandedMenu';
 import FormInputField from '../FormInputField/FormInputField';
@@ -14,6 +15,8 @@ import Icon from '../Icons/Icon';
 import MiniCart from '../MiniCart';
 import MobileNavigation from '../MobileNavigation';
 import * as styles from './Header.module.css';
+import { $business } from '../../pages';
+import { useUnit } from 'effector-react';
 
 export const Header = (prop: any) => {
   const [showMiniCart, setShowMiniCart] = useState(false);
@@ -102,7 +105,7 @@ export const Header = (prop: any) => {
                 setShowMenu(false);
               }}
             >
-              {Config.headerLinks.map((navObject) => (
+              {businessConfig.headerLinks.map((navObject) => (
                 <Link
                   key={navObject.menuLink}
                   onMouseEnter={() => handleHover(navObject)}
@@ -112,7 +115,8 @@ export const Header = (prop: any) => {
                 >
                   {navObject.menuLabel}
                 </Link>
-              ))}
+              ))
+              }
             </nav>
           </div>
           <div
@@ -127,7 +131,8 @@ export const Header = (prop: any) => {
           </div>
           <Brand />
           <div className={styles.actionContainers}>
-            <button
+            {/* <button TODO: add search functionality
+              display-if={false}
               aria-label="Search"
               className={`${styles.iconButton} ${styles.iconContainer}`}
               onClick={() => {
@@ -135,7 +140,7 @@ export const Header = (prop: any) => {
               }}
             >
               <Icon symbol={'search'}></Icon>
-            </button>
+            </button> */}
             <Link
               aria-label="Favorites"
               to="/account/favorites"
