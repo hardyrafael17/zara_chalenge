@@ -13,10 +13,15 @@ import ProductCardGrid from '../components/ProductCardGrid';
 import { generateMockProductData } from '../helpers/mock';
 import Button from '../components/Button';
 import Config from '../config.json';
-import { graphql } from 'gatsby';
+import { HeadProps, graphql } from 'gatsby';
+
+export const Head = (props: HeadProps<{ title: string }>) => {
+  console.log('from head', props);
+  return <title>Shop</title>;
+};
 
 const ShopPage = (props) => {
-  console.log(props?.pageContext)
+  console.log(props?.pageContext);
   const [showFilter, setShowFilter] = useState(false);
   const data = generateMockProductData(6, 'woman');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { navigate } from 'gatsby';
 import { businessConfig } from '../../websiteContent';
-import { $business } from '../../pages';
+import { $business } from '../../../gatsby-browser';
 import { useUnit } from 'effector-react';
 
 import * as styles from './Brand.module.css';
@@ -10,7 +10,7 @@ const Brand = (props) => {
   const business = useUnit($business);
   return (
     <div
-      className={styles.root}
+      className="text-primary"
       role={'presentation'}
       onClick={() => navigate('/')}
     >

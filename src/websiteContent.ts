@@ -1,5 +1,6 @@
 // convert this to typescript
 export interface Config {
+  title? : string;
   businessName: string;
   shortBusinessName?: string;
   longBusinessName?: string;

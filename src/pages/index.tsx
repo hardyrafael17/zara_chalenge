@@ -1,108 +1,24 @@
-import React, { useState } from 'react';
-import { Carousel } from 'primereact/carousel';
-import type { HeadFC, HeadProps, PageProps } from 'gatsby';
-import { Link, graphql, navigate } from 'gatsby';
-import { validateEmail, isEmpty } from '../helpers/general';
+import React, { useContext, useState } from 'react';
+import { graphql, navigate } from 'gatsby';
 import Hero from '../components/Hero';
-import './login.module.css';
-import Layout from '../components/Layout/Layout';
-import * as styles from './index.module.css';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
-import type { Config } from '../websiteContent';
-import { businessConfig } from '../websiteContent';
-import { createStore, createEvent } from 'effector';
-import { useUnit } from 'effector-react';
-import { title } from 'process';
-import { Helmet } from 'react-helmet';
-export const $business = createStore<Config>(businessConfig);
-export const setBusiness = createEvent<Config>();
-$business.on(setBusiness, (_, business) => business);
-import favion from '../images/icon.png';
-import dinoFavicon from "../images/icon.png"
+import { PrimeReactContext } from 'primereact/api';
+import '../../node_modules/primereact/resources/themes/arya-orange/theme.css';
+import { Button } from 'primereact/button';
 
-export const Head = (props: HeadProps<{ title: string }>) => {
-  const favicon = '../images/icon.png';
-  return (
-    <>
-      {/* <Helmet */}
-      {/*   title="Molino Navarenas" */}
-      {/*   meta={[ */}
-      {/*     { name: 'description', content: '...' }, */}
-      {/*     { name: 'keywords', content: '....' }, */}
-      {/*   ]} */}
-      {/*   link={[ */}
-      {/*     { */}
-      {/*       rel: 'shortcut icon', */}
-      {/*       type: 'image/png', */}
-      {/*       href: `../images/icon.png`, */}
-      {/*     }, */}
-      {/*   ]} */}
-      {/* />{' '} */}
-    </>
-  );
-};
+const Index = () => {
+  const { t } = useTranslation('index');
+  const [theme, setTheme] = useState('light');
 
-const LoginPage = (props?: PageProps) => {
-  const { t, i18n } = useTranslation();
-  const initialState = {
-    email: '',
-    password: '',
-  };
-
-  const business = useUnit($business);
-  console.log(business);
-
-  const errorState = {
-    email: '',
-    password: '',
-  };
-
-  const [loginForm, setLoginForm] = useState(initialState);
-  const [errorForm, setErrorForm] = useState(errorState);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleChange = (id: string, e: Event) => {
-    const tempForm = { ...loginForm, [id]: e };
-    setLoginForm(tempForm);
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    let validForm = true;
-    const tempError = { ...errorForm };
-
-    if (validateEmail(loginForm.email) !== true) {
-      tempError.email =
-        'Please use a valid email address, such as user@example.com.';
-      validForm = false;
-    } else {
-      tempError.email = '';
-    }
-
-    if (isEmpty(loginForm.password) === true) {
-      tempError.password = 'Field required';
-      validForm = false;
-    } else {
-      tempError.password = '';
-    }
-
-    if (validForm === true) {
-      setErrorForm(errorState);
-
-      //mock login
-      if (loginForm.email !== 'error@example.com') {
-        navigate('/account');
-        window.localStorage.setItem('key', 'sampleToken');
-      } else {
-        window.scrollTo(0, 0);
-        setErrorMessage(
-          'There is no such account associated with this email address'
-        );
-      }
-    } else {
-      setErrorMessage('');
-      setErrorForm(tempError);
-    }
+  const PrimeReact = useContext(PrimeReactContext);
+  const changeMyTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    PrimeReact?.changeTheme?.(
+      `lara-${theme}-blue`,
+      `lara-${newTheme}-blue`,
+      'app-theme',
+      () => setTheme(newTheme)
+    );
   };
 
   const gotoCta = () => {
@@ -111,7 +27,7 @@ const LoginPage = (props?: PageProps) => {
   };
 
   return (
-    <Layout>
+    <>
       <Hero
         maxWidth={'500px'}
         image={'/banner1.png'}
@@ -121,12 +37,12 @@ const LoginPage = (props?: PageProps) => {
         ctaAction={gotoCta}
         ctaTo={'/shop'}
       />
-      <Carousel />
-    </Layout>
+      <Button onClick={() => changeMyTheme()}>Change Theme</Button>
+    </>
   );
 };
 
-export default LoginPage;
+export default Index;
 
 export const query = graphql`
   query ($language: String!) {
