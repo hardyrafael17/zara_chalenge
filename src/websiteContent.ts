@@ -47,6 +47,7 @@ export interface Link {
 }
 
 export interface HeaderLink {
+  icon: string;
   menuLabel: string;
   menuLink: string;
   category: Category[] | null;
@@ -168,17 +169,20 @@ export const businessConfig: Config = {
     {
       "menuLabel": "gallery",
       "menuLink": "/gallery",
-      "category": null
+      "category": null,
+      icon: "pi pi-images"
     },
     {
       "menuLabel": "services",
       "menuLink": "/services",
-      "category": null
+      "category": null,
+      icon: "pi pi-shopping-bag"
     },
     {
       "menuLabel": "contact",
       "menuLink": "/about",
-      "category": null
+      "category": null,
+      icon: "pi pi-id-card"
     }
   ],
   "filters": [

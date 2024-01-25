@@ -1,14 +1,13 @@
 import { Link } from 'gatsby';
 import React, { useState } from 'react';
 
-import Accordion from '../Accordion';
-import Container from '../Container';
 import Dropdown from '../Dropdown/Dropdown';
 import FormInputField from '../FormInputField/FormInputField';
 import Icon from '../Icons/Icon';
-import Button from '../Button';
 import Config from '../../config.json';
 import * as styles from './Footer.module.css';
+import { Card } from 'primereact/card';
+import { Accordion } from 'primereact/accordion';
 
 const Footer = (prop) => {
   const [email, setEmail] = useState('');
@@ -40,9 +39,8 @@ const Footer = (prop) => {
   };
 
   return (
-    <div className={styles.root}>
-      <Container size={'large'} spacing={'min'}>
-        <div className={styles.content}>
+    <footer className={styles.root}>
+      <Card className="m-0 pb-0">
           <div className={styles.contentTop}>
             {Config.footerLinks.map((linkCollection, indexLink) => {
               return (
@@ -57,8 +55,6 @@ const Footer = (prop) => {
                   {/* for mobile version */}
                   <div className={styles.mobileFooterLinks}>
                     <Accordion
-                      customStyle={styles}
-                      type={'add'}
                       title={linkCollection.subTitle}
                     >
                       {renderLinks(linkCollection)}
@@ -130,57 +126,53 @@ const Footer = (prop) => {
               </div>
             </div>
           </div>
-        </div>
-      </Container>
-      <div className={styles.contentBottomContainer}>
-        <Container size={'large'} spacing={'min'}>
-          <div className={styles.contentBottom}>
-            <div className={styles.settings}>
-              <Dropdown
-                label={'Country/Region'}
-                optionList={Config.currencyList}
-              />
-              <Dropdown label={'Language'} optionList={Config.languageList} />
-            </div>
-            <div className={styles.copyrightContainer}>
-              <div className={styles.creditCardContainer}>
-                {Config.paymentOptions.amex && (
-                  <img
-                    className={styles.amexSize}
-                    src={'/amex.png'}
-                    alt={'amex'}
-                  ></img>
-                )}
-                {Config.paymentOptions.mastercard && (
-                  <img
-                    className={styles.masterSize}
-                    src={'/master.png'}
-                    alt={'mastercard'}
-                  ></img>
-                )}
-                {Config.paymentOptions.visa && (
-                  <img
-                    className={styles.visaSize}
-                    src={'/visa.png'}
-                    alt={'visa'}
-                  ></img>
-                )}
-              </div>
-              <span>
-                {new Date().getFullYear()} (c) . Built by{' '}
-                <Button target={true} href="https://www.matterdesign.com.au/">
-                  Matter.
-                </Button>{' '}
-                Powered by{' '}
-                <Button target={true} href="https://jamm.matter.design/">
-                  JAMM.™
-                </Button>
-              </span>
-            </div>
+        <div className={styles.contentBottom}>
+          <div className={styles.settings}>
+            <Dropdown
+              label={'Country/Region'}
+              optionList={Config.currencyList}
+            />
+            <Dropdown label={'Language'} optionList={Config.languageList} />
           </div>
-        </Container>
-      </div>
-    </div>
+          <div className={styles.copyrightContainer}>
+            <div className={styles.creditCardContainer}>
+              {Config.paymentOptions.amex && (
+                <img
+                  className={styles.amexSize}
+                  src={'/amex.png'}
+                  alt={'amex'}
+                ></img>
+              )}
+              {Config.paymentOptions.mastercard && (
+                <img
+                  className={styles.masterSize}
+                  src={'/master.png'}
+                  alt={'mastercard'}
+                ></img>
+              )}
+              {Config.paymentOptions.visa && (
+                <img
+                  className={styles.visaSize}
+                  src={'/visa.png'}
+                  alt={'visa'}
+                ></img>
+              )}
+            </div>
+            <span>
+              Hardy Rafael Jimenez Matos, Copiright © {new Date().getFullYear()}{' '}
+              {/* {new Date().getFullYear()} (c) . Built by{' '} */}
+              {/* <Button target={true} href="https://www.matterdesign.com.au/"> */}
+              {/*   Matter. */}
+              {/* </Button>{' '} */}
+              {/* Powered by{' '} */}
+              {/* <Button target={true} href="https://jamm.matter.design/"> */}
+              {/*   JAMM.™ */}
+              {/* </Button> */}
+            </span>
+          </div>
+        </div>
+      </Card>
+    </footer>
   );
 };
 

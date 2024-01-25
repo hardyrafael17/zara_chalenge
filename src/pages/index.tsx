@@ -3,12 +3,11 @@ import { graphql, navigate } from 'gatsby';
 import Hero from '../components/Hero';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 import { PrimeReactContext } from 'primereact/api';
-import '../../node_modules/primereact/resources/themes/arya-orange/theme.css';
 import { Button } from 'primereact/button';
 
 const Index = () => {
   const { t } = useTranslation('index');
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   const PrimeReact = useContext(PrimeReactContext);
   const changeMyTheme = () => {
@@ -28,6 +27,9 @@ const Index = () => {
 
   return (
     <>
+      {/* <Button className="pi-button" onClick={() => changeMyTheme()}> */}
+      {/*   Change Theme */}
+      {/* </Button> */}
       <Hero
         maxWidth={'500px'}
         image={'/banner1.png'}
@@ -37,7 +39,6 @@ const Index = () => {
         ctaAction={gotoCta}
         ctaTo={'/shop'}
       />
-      <Button onClick={() => changeMyTheme()}>Change Theme</Button>
     </>
   );
 };

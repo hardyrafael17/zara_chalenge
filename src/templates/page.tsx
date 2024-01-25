@@ -6,7 +6,7 @@ import { useTranslation } from 'gatsby-plugin-react-i18next';
 import { businessConfig } from '../websiteContent';
 import { useUnit } from 'effector-react';
 import { Helmet } from 'react-helmet';
-import { $business, setBusiness } from '../../gatsby-browser';
+import { $business, setBusiness } from '../components/Layout/Layout';
 
 export const Head = (props: any) => {
   let headerTitle = props.pageContext.title;

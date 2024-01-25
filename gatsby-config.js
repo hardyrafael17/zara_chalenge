@@ -7,6 +7,8 @@ module.exports = {
     defaultLanguage: `es`,
   },
   plugins: [
+
+    'gatsby-plugin-postcss',
     'gatsby-plugin-postcss',
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
@@ -62,7 +64,6 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-      name: `Mike Kronk`,
       short_name: `MK`,
       start_url: `/`,
       background_color: `#ffffff`,

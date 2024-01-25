@@ -1,29 +1,22 @@
 import * as React from 'react';
-import type { GatsbyBrowser } from 'gatsby';
 import { PrimeReactProvider } from 'primereact/api';
+import type { GatsbyBrowser } from 'gatsby';
 import Layout from './src/components/Layout/Layout';
 import { Helmet } from 'react-helmet';
-import { createEvent, createStore } from 'effector';
-import { Config, businessConfig } from './src/websiteContent';
-export const $business = createStore<Config>(businessConfig);
-export const setBusiness = createEvent<Config>();
-$business.on(setBusiness, (_, business) => business);
+import "primeflex/primeflex.css";
+import "primeicons/primeicons.css";
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   element,
 }) => {
-  const value: Partial<APIOptions> = {
-    appendTo: 'self',
-  };
-
   return (
-    <PrimeReactProvider value={value}>
+    <PrimeReactProvider value={{ appendTo: 'self' }}>
       <Helmet>
         <title>Home</title>
         <link
           id="app-theme"
           rel="stylesheet"
-          href="/themes/lara-light-blue/theme.css"
+          href="/themes/lara-dark-blue/theme.css"
         />
       </Helmet>
       <Layout>{element}</Layout>
