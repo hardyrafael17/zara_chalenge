@@ -1,13 +1,14 @@
 import { Link } from 'gatsby';
 import React, { useState } from 'react';
-
-import Dropdown from '../Dropdown/Dropdown';
+import { Dropdown } from 'primereact/dropdown';
 import FormInputField from '../FormInputField/FormInputField';
 import Icon from '../Icons/Icon';
 import Config from '../../config.json';
 import * as styles from './Footer.module.css';
 import { Card } from 'primereact/card';
 import { Accordion } from 'primereact/accordion';
+import { StaticImage } from 'gatsby-plugin-image';
+import { InputText } from 'primereact/inputtext';
 
 const Footer = (prop) => {
   const [email, setEmail] = useState('');
@@ -39,123 +40,124 @@ const Footer = (prop) => {
   };
 
   return (
-    <footer className={styles.root}>
-      <Card className="m-0 pb-0">
-          <div className={styles.contentTop}>
+    <footer className="h-8 grid">
+      <div className="col-6 m-0 p-0">
+        <Card className="col-12 m-0 p-0 border-noround">
+          <div className="col-6">
             {Config.footerLinks.map((linkCollection, indexLink) => {
               return (
-                <div className={styles.footerLinkContainer} key={indexLink}>
+                <div className="" key={indexLink}>
                   {/* for web version */}
-                  <div className={styles.footerLinks}>
-                    <span className={styles.linkTitle}>
-                      {linkCollection.subTitle}
-                    </span>
+                  <div className="">
+                    <span className="">{linkCollection.subTitle}</span>
                     {renderLinks(linkCollection)}
                   </div>
                   {/* for mobile version */}
-                  <div className={styles.mobileFooterLinks}>
-                    <Accordion
-                      title={linkCollection.subTitle}
-                    >
-                      {renderLinks(linkCollection)}
-                    </Accordion>
+                  <div className="">
+                    <Accordion>{renderLinks(linkCollection)}</Accordion>
                   </div>
                 </div>
               );
             })}
-            <div className={styles.newsLetter}>
-              <div className={styles.newsLetterContent}>
-                <span className={styles.linkTitle}>Newsletter</span>
-                <p className={styles.promoMessage}>
-                  Get 15% off your first purchase! Plus, be the first to know
-                  about sales, new product launches and exclusive offers!
-                </p>
-                <form
-                  className={styles.newsLetterForm}
-                  onSubmit={(e) => subscribeHandler(e)}
+          </div>
+        </Card>
+      </div>
+      <div className="col-6 m-0 p-0">
+        <Card className="h-full border-noround">
+          <div className="">
+            <span className="">Newsletter</span>
+            <p className={styles.promoMessage}>
+              Get 15% off your first purchase! Plus, be the first to know about
+              sales, new product launches and exclusive offers!
+            </p>
+            <form className="" onSubmit={(e) => subscribeHandler(e)}>
+              <InputText 
+                id={'newsLetterInput'}
+                value={email}
+                placeholder={'Email'}
+                handleChange={(_, e) => setEmail(e)}
+              />
+            </form>
+            <div className="flex gap-5 align-items-center nowrap justify-content-end">
+              {Config.social.youtube && (
+                <div
+                  onClick={() => handleSocialClick('youtube')}
+                  role={'presentation'}
+                  className={styles.socialIconContainer}
                 >
-                  <FormInputField
-                    icon={'arrow'}
-                    id={'newsLetterInput'}
-                    value={email}
-                    placeholder={'Email'}
-                    handleChange={(_, e) => setEmail(e)}
-                  />
-                </form>
-                <div className={styles.socialContainer}>
-                  {Config.social.youtube && (
-                    <div
-                      onClick={() => handleSocialClick('youtube')}
-                      role={'presentation'}
-                      className={styles.socialIconContainer}
-                    >
-                      <Icon symbol={'youtube'}></Icon>
-                    </div>
-                  )}
-
-                  {Config.social.instagram && (
-                    <div
-                      onClick={() => handleSocialClick('instagram')}
-                      role={'presentation'}
-                      className={styles.socialIconContainer}
-                    >
-                      <Icon symbol={'instagram'}></Icon>
-                    </div>
-                  )}
-
-                  {Config.social.facebook && (
-                    <div
-                      onClick={() => handleSocialClick('facebook')}
-                      role={'presentation'}
-                      className={styles.socialIconContainer}
-                    >
-                      <Icon symbol={'facebook'}></Icon>
-                    </div>
-                  )}
-
-                  {Config.social.twitter && (
-                    <div
-                      onClick={() => handleSocialClick('twitter')}
-                      role={'presentation'}
-                      className={styles.socialIconContainer}
-                    >
-                      <Icon symbol={'twitter'}></Icon>
-                    </div>
-                  )}
+                  <Icon symbol={'youtube'}></Icon>
                 </div>
-              </div>
+              )}
+
+              {Config.social.instagram && (
+                <div
+                  onClick={() => handleSocialClick('instagram')}
+                  role={'presentation'}
+                  className={styles.socialIconContainer}
+                >
+                  <Icon symbol={'instagram'}></Icon>
+                </div>
+              )}
+
+              {Config.social.facebook && (
+                <div
+                  onClick={() => handleSocialClick('facebook')}
+                  role={'presentation'}
+                  className={styles.socialIconContainer}
+                >
+                  <Icon symbol={'facebook'}></Icon>
+                </div>
+              )}
+
+              {Config.social.twitter && (
+                <div
+                  onClick={() => handleSocialClick('twitter')}
+                  role={'presentation'}
+                  className={styles.socialIconContainer}
+                >
+                  <Icon symbol={'twitter'}></Icon>
+                </div>
+              )}
             </div>
           </div>
-        <div className={styles.contentBottom}>
+        </Card>
+      </div>
+      <div className="col-12 text-center m-0 p-0">
+        <Card className="border-noround">
           <div className={styles.settings}>
             <Dropdown
-              label={'Country/Region'}
-              optionList={Config.currencyList}
+              placeholder={'Country/Region'}
+              value={[{ name: 'name' }, { adios: 'adios' }]}
+              optionLabel="name"
             />
-            <Dropdown label={'Language'} optionList={Config.languageList} />
+            <Dropdown
+              placeholder={'Language'}
+              value={Config.languageList}
+              optionLabel="value"
+            />
           </div>
-          <div className={styles.copyrightContainer}>
-            <div className={styles.creditCardContainer}>
+          <div className="">
+            <div className="">
               {Config.paymentOptions.amex && (
-                <img
+                <StaticImage
                   className={styles.amexSize}
-                  src={'/amex.png'}
+                  src={'../../../static/amex.png'}
                   alt={'amex'}
-                ></img>
+                />
               )}
               {Config.paymentOptions.mastercard && (
-                <img
+                <StaticImage
                   className={styles.masterSize}
-                  src={'/master.png'}
+                  src={'../../../static/master.png'}
                   alt={'mastercard'}
-                ></img>
+                />
               )}
               {Config.paymentOptions.visa && (
-                <img
+                <StaticImage
                   className={styles.visaSize}
-                  src={'/visa.png'}
+                  src={'../../../static/visa.png'}
                   alt={'visa'}
-                ></img>
+                />
               )}
             </div>
             <span>
@@ -170,10 +172,17 @@ const Footer = (prop) => {
               {/* </Button> */}
             </span>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </footer>
   );
 };
+
+const test = (
+  <Card
+    style={{ margin: '0px', padding: '0px' }}
+    className="w-full m-0 p-0 grid"
+  ></Card>
+);
 
 export default Footer;
