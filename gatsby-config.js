@@ -7,8 +7,7 @@ module.exports = {
     defaultLanguage: `es`,
   },
   plugins: [
-
-    'gatsby-plugin-postcss',
+    `gatsby-plugin-graphql-codegen`,
     'gatsby-plugin-postcss',
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
@@ -24,7 +23,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'images',
+        name: 'srcImages',
         path: './src/images/',
       },
       __key: 'images',
@@ -64,12 +63,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-      short_name: `MK`,
-      start_url: `/`,
-      background_color: `#ffffff`,
-      theme_color: `#663399`,
-      display: `minimal-ui`,
-      icon: `src/images/icon.png`}, 
-    }
-  ]
+        short_name: `Molino Navarenas`,
+        start_url: `/`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
+  ],
 };
