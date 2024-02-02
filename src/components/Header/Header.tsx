@@ -27,6 +27,7 @@ export const Header = (prop: any) => {
   const start = (
     <StaticImage
       width={30}
+      placeholder="none"
       height={30}
       src="../../images/icon.png"
       alt="logo"

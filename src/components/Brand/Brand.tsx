@@ -8,7 +8,6 @@ import { PrimeReactContext } from 'primereact/api';
 
 const Brand = () => {
   const business = useUnit($business);
-  console.log(business);
 
   const PrimeReact = useContext(PrimeReactContext);
 
@@ -16,9 +15,7 @@ const Brand = () => {
   const changeMyTheme = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    console.log('changing theme');
     e.preventDefault();
-    console.log('changing theme');
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     PrimeReact?.changeTheme?.(
       `lara-${theme}-blue`,
@@ -38,6 +35,7 @@ const Brand = () => {
         src="../../images/icon.png"
         alt="logo"
         className="hidden xl:inline-block mr-3 ml-2"
+        placeholder="none"
       />
       <Button
         text

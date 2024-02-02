@@ -4,11 +4,12 @@ import { Dropdown } from 'primereact/dropdown';
 import FormInputField from '../FormInputField/FormInputField';
 import Icon from '../Icons/Icon';
 import Config from '../../config.json';
-import * as styles from './Footer.module.css';
 import { Card } from 'primereact/card';
-import { Accordion } from 'primereact/accordion';
+import { Accordion, AccordionTab } from 'primereact/accordion';
 import { StaticImage } from 'gatsby-plugin-image';
 import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { classNames } from 'primereact/utils';
 
 const Footer = (prop) => {
   const [email, setEmail] = useState('');
@@ -23,146 +24,172 @@ const Footer = (prop) => {
     window.open(Config.social[platform]);
   };
 
-  const renderLinks = (linkCollection) => {
+  const renderLinks = (linkCollection: { subTitle?: string; links: any }) => {
     return (
-      <ul className={styles.linkList}>
-        {linkCollection.links.map((link, index) => {
-          return (
-            <li key={index}>
-              <Link className={`${styles.link} fancy`} to={link.link}>
-                {link.text}
-              </Link>
-            </li>
-          );
-        })}
+      <ul className="list-none">
+        {linkCollection.links.map(
+          (link: { text: string; link: string }, index: number) => {
+            return (
+              <li key={index} className="">
+                <Link className="" to={link.link}>
+                  <Button className="py-1 py-1" size="small" text>
+                    {link.text}
+                  </Button>
+                </Link>
+              </li>
+            );
+          }
+        )}
       </ul>
     );
   };
 
   return (
-    <footer className="h-8 grid">
-      <div className="col-6 m-0 p-0">
-        <Card className="col-12 m-0 p-0 border-noround">
-          <div className="col-6">
+    <footer className="h-8 grid m-0">
+      <div className="col-12 md:col-6 p-0">
+        <Card
+          className="col-12 border-noround h-full"
+          pt={{ content: { className: 'pb-0' } }}
+        >
+          <div className="grid">
             {Config.footerLinks.map((linkCollection, indexLink) => {
               return (
-                <div className="" key={indexLink}>
+                <div
+                  className="hidden md:block col-12 md:col-6"
+                  key={indexLink}
+                >
                   {/* for web version */}
                   <div className="">
-                    <span className="">{linkCollection.subTitle}</span>
+                    <span className="font-semibold sm:text-lg ml-5 text-primary">
+                      {linkCollection.subTitle}
+                    </span>
                     {renderLinks(linkCollection)}
-                  </div>
-                  {/* for mobile version */}
-                  <div className="">
-                    <Accordion>{renderLinks(linkCollection)}</Accordion>
                   </div>
                 </div>
               );
             })}
           </div>
+          {/* for mobile version */}
+          <Accordion className="w-full inline-block md:hidden">
+            {Config.footerLinks.map((linkCollection, indexLink) => {
+              return (
+                <AccordionTab
+                  header={linkCollection.subTitle}
+                  className=""
+                  key={indexLink}
+                >
+                  <div className="col-12 md:col-6">
+                    {renderLinks(linkCollection)}
+                  </div>
+                </AccordionTab>
+              );
+            })}
+          </Accordion>
         </Card>
       </div>
-      <div className="col-6 m-0 p-0">
-        <Card className="h-full border-noround">
-          <div className="">
-            <span className="">Newsletter</span>
-            <p className={styles.promoMessage}>
-              Get 15% off your first purchase! Plus, be the first to know about
-              sales, new product launches and exclusive offers!
-            </p>
-            <form className="" onSubmit={(e) => subscribeHandler(e)}>
-              <InputText 
-                id={'newsLetterInput'}
-                value={email}
-                placeholder={'Email'}
-                handleChange={(_, e) => setEmail(e)}
-              />
-            </form>
-            <div className="flex gap-5 align-items-center nowrap justify-content-end">
-              {Config.social.youtube && (
-                <div
-                  onClick={() => handleSocialClick('youtube')}
-                  role={'presentation'}
-                  className={styles.socialIconContainer}
-                >
-                  <Icon symbol={'youtube'}></Icon>
-                </div>
-              )}
+      <div className="md:col-6 m-0 p-0">
+        <Card
+          className="h-full m-0 p-0 border-noround"
+          pt={{ content: { className: 'py-0 center' } }}
+        >
+          <h3 className="text-primary text-xl pt-1 font-semibold text-center">
+            Newsletter
+          </h3>
+          <p className="text-primary text-center ">
+            Get 15% off your first purchase! Plus, be the first to know about
+            sales, new product launches and exclusive offers!
+          </p>
+          <div className="w-full flex justify-content-center align-items-center">
+            <InputText
+              id={'newsLetterInput'}
+              value={email}
+              placeholder={'Email'}
+              // handleChange={(_, e) => setEmail(e)}
+              className="w-12 sm:w-10 md:w-8 my-3 px-3"
+            />
+          </div>
+          <div className="flex gap-5 align-items-center nowrap justify-content-center md:justify-content-center">
+            {Config.social.youtube && (
+              <div
+                onClick={() => handleSocialClick('youtube')}
+                role={'presentation'}
+              >
+                <Icon symbol={'youtube'}></Icon>
+              </div>
+            )}
 
-              {Config.social.instagram && (
-                <div
-                  onClick={() => handleSocialClick('instagram')}
-                  role={'presentation'}
-                  className={styles.socialIconContainer}
-                >
-                  <Icon symbol={'instagram'}></Icon>
-                </div>
-              )}
+            {Config.social.instagram && (
+              <div
+                onClick={() => handleSocialClick('instagram')}
+                role={'presentation'}
+              >
+                <Icon symbol={'instagram'}></Icon>
+              </div>
+            )}
 
-              {Config.social.facebook && (
-                <div
-                  onClick={() => handleSocialClick('facebook')}
-                  role={'presentation'}
-                  className={styles.socialIconContainer}
-                >
-                  <Icon symbol={'facebook'}></Icon>
-                </div>
-              )}
+            {Config.social.facebook && (
+              <div
+                onClick={() => handleSocialClick('facebook')}
+                role={'presentation'}
+              >
+                <Icon symbol={'facebook'}></Icon>
+              </div>
+            )}
 
-              {Config.social.twitter && (
-                <div
-                  onClick={() => handleSocialClick('twitter')}
-                  role={'presentation'}
-                  className={styles.socialIconContainer}
-                >
-                  <Icon symbol={'twitter'}></Icon>
-                </div>
-              )}
-            </div>
+            {Config.social.twitter && (
+              <div
+                onClick={() => handleSocialClick('twitter')}
+                role={'presentation'}
+              >
+                <Icon symbol={'twitter'}></Icon>
+              </div>
+            )}
           </div>
         </Card>
       </div>
-      <div className="col-12 text-center m-0 p-0">
-        <Card className="border-noround">
-          <div className={styles.settings}>
+      {/* Bottom Div*/}
+      <Card
+        className="w-full border-noround col-12 md:col-6"
+        pt={{ content: { className: 'pt-0' } }}
+      >
+        <div className="grid">
+          <div className="col-12 sm:col-6 flex justify-content-center align-items-center gap-3">
             <Dropdown
+              value={Config.languageList}
               placeholder={'Country/Region'}
-              value={[{ name: 'name' }, { adios: 'adios' }]}
               optionLabel="name"
+              className="w-6 md:w-5"
             />
             <Dropdown
               placeholder={'Language'}
               value={Config.languageList}
               optionLabel="value"
+              className="w-6 md:w-5"
             />
           </div>
-          <div className="">
-            <div className="">
+          <div className="grid col-12 sm:col-6">
+            <div className="col-12 sm:col-6 flex justify-content-center align-items-center gap-3 my-0">
               {Config.paymentOptions.amex && (
                 <StaticImage
-                  className={styles.amexSize}
                   src={'../../../static/amex.png'}
                   alt={'amex'}
                 />
               )}
               {Config.paymentOptions.mastercard && (
                 <StaticImage
-                  className={styles.masterSize}
                   src={'../../../static/master.png'}
                   alt={'mastercard'}
                 />
               )}
               {Config.paymentOptions.visa && (
                 <StaticImage
-                  className={styles.visaSize}
                   src={'../../../static/visa.png'}
                   alt={'visa'}
                 />
               )}
             </div>
-            <span>
+            <span className="col-12 sm:col-6 flex justify-content-center align-items-center gap-3 my-0">
               Hardy Rafael Jimenez Matos, Copiright © {new Date().getFullYear()}{' '}
-              {/* {new Date().getFullYear()} (c) . Built by{' '} */}
               {/* <Button target={true} href="https://www.matterdesign.com.au/"> */}
               {/*   Matter. */}
               {/* </Button>{' '} */}
@@ -172,17 +199,10 @@ const Footer = (prop) => {
               {/* </Button> */}
             </span>
           </div>
-        </Card>
-      </div>
+        </div>
+      </Card>
     </footer>
   );
 };
-
-const test = (
-  <Card
-    style={{ margin: '0px', padding: '0px' }}
-    className="w-full m-0 p-0 grid"
-  ></Card>
-);
 
 export default Footer;
