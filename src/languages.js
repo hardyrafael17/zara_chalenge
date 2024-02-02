@@ -13,8 +13,6 @@ const languages = readdirSync(join(__dirname, 'locales')).filter((fileName) => {
 languages.splice(languages.indexOf(defaultLanguage), 1);
 languages.unshift(defaultLanguage);
 
-console.log(languages, "<<< languages");
-
 module.exports = {
   languages,
   defaultLanguage,
