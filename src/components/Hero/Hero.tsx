@@ -2,6 +2,7 @@ import React from 'react';
 import * as styles from './Hero.module.css';
 import Button from '../Button';
 import { Link } from 'gatsby';
+import { PrimeReactContext } from 'primereact/api';
 import { t } from 'i18next';
 
 type HeroProps = {
@@ -29,6 +30,8 @@ const Hero = (props: HeroProps) => {
     ctaTo,
     header,
   } = props;
+  const PrimeReact = React.useContext(PrimeReactContext);
+  console.log(PrimeReact)
   return (
     <div className={styles.root} style={{ backgroundImage: `url(${image})` }}>
       <div className={styles.content} style={{ maxWidth: maxWidth }}>

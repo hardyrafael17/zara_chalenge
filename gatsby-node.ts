@@ -1,33 +1,9 @@
 import type { CreatePageArgs, GatsbyNode } from 'gatsby';
 const fs = require('fs');
 const yaml = require('js-yaml');
+import { businessConfig } from './src/websiteContent';
 import path from 'path';
-import i18next from 'gatsby-plugin-react-i18next';
-import { readFileSync } from 'fs';
-import { kMaxLength } from 'buffer';
 
-exports.createPages = ({ actions }: CreatePageArgs) => {
-  const { createPage } = actions;
-  // const ymlDoc = yaml.load(
-  //   fs.readFileSync('./pageContent/index.yaml', 'utf-8')
-  // );
-  createPage({
-    path: '/',
-    component: path.resolve('./src/pages/index.tsx'),
-    context: {
-      test: 'test', noMames: 'noMames'
-    }
-  });
-
-  // path: "/",
-  // component: path.resolve("./src/pages/index.tsx"),
-  // context: {
-  //   test: "test"
-  // },
-};
-exports.onCreatePage = async ({ page, actions }) => {
-  console.log(page.path, "----->", page.path === "/" ? console.log(page) : null)
-}
 exports.onCreateWebpackConfig = (helper) => {
   const { stage, actions, getConfig } = helper;
   if (stage === 'develop' || stage === 'build-javascript') {
@@ -40,4 +16,18 @@ exports.onCreateWebpackConfig = (helper) => {
     }
     actions.replaceWebpackConfig(config);
   }
+};
+exports.createPages = async ({ actions }: CreatePageArgs) => {
+  businessConfig.headerLinks.forEach((link, pageIndex) => {
+    console.log('creating page with path', link.menuLabel);
+    actions.createPage({
+      path: link.menuLabel,
+      component: path.resolve('./src/templates/page.tsx'),
+      context: {
+        pageIndex,
+        link,
+        title: link.menuLabel,
+      },
+    });
+  });
 };

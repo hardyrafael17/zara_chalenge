@@ -1,99 +1,99 @@
-import React, { useState } from 'react';
-import type { HeadFC, PageProps } from 'gatsby';
-import { Link, graphql, navigate } from 'gatsby';
-import { validateEmail, isEmpty } from '../helpers/general';
-import Hero from '../components/Hero';
-import './login.module.css';
-import Layout from '../components/Layout/Layout';
-import * as styles from './index.module.css';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
+import { Button } from 'primereact/button';
+import { IGatsbyImageData, StaticImage } from 'gatsby-plugin-image';
+import { graphql, navigate } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-export const Head: HeadFC<{ title?: string | undefined }> = (props) => <title>{props.title || 'Home Page'}</title>;
+const Index = (data: { data: { allFile: { edges: any[] } } }) => {
+  const { t } = useTranslation('index');
+  const [images, setImages] = useState<IGatsbyImageData[]>([]);
+  const [image, setImage] = useState<IGatsbyImageData | undefined>();
 
-const LoginPage = (props?: PageProps) => {
-  props?.pageContext ? console.log(props.pageContext) : console.log('no page context');
-  const { t, i18n } = useTranslation();
-  const initialState = {
-    email: '',
-    password: '',
+  function getImages() {
+    const imagesArrayLenght = data.data.allFile?.edges?.length;
+    // if the imagesArrayLenght is greater than 0, then we get a random number that's less or equal to the imagesArrayLenght
+    const randomImageIndex = imagesArrayLenght
+      ? Math.floor(Math.random() * imagesArrayLenght)
+      : 0;
+    data.data.allFile?.edges?.forEach((objectNode, index) => {
+      const currentImage = getImage(
+        objectNode.node.childImageSharp.gatsbyImageData
+      );
+      if (!image && randomImageIndex === index) setImage(currentImage);
+      if (currentImage)
+        setImages((prevImages) => [...prevImages, currentImage]);
+    });
+  }
+
+  // logs the image data from childImageSharp and also sets a new image to the state, the image should be random
+  const logData = () => {
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    setImage(randomImage);
+    data.data.allFile?.edges?.forEach((objectNode) =>
+      console.log(objectNode.node)
+    );
   };
 
-  const errorState = {
-    email: '',
-    password: '',
-  };
-
-  const [loginForm, setLoginForm] = useState(initialState);
-  const [errorForm, setErrorForm] = useState(errorState);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleChange = (id: string, e: Event) => {
-    const tempForm = { ...loginForm, [id]: e };
-    setLoginForm(tempForm);
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    let validForm = true;
-    const tempError = { ...errorForm };
-
-    if (validateEmail(loginForm.email) !== true) {
-      tempError.email =
-        'Please use a valid email address, such as user@example.com.';
-      validForm = false;
-    } else {
-      tempError.email = '';
-    }
-
-    if (isEmpty(loginForm.password) === true) {
-      tempError.password = 'Field required';
-      validForm = false;
-    } else {
-      tempError.password = '';
-    }
-
-    if (validForm === true) {
-      setErrorForm(errorState);
-
-      //mock login
-      if (loginForm.email !== 'error@example.com') {
-        navigate('/account');
-        window.localStorage.setItem('key', 'sampleToken');
-      } else {
-        window.scrollTo(0, 0);
-        setErrorMessage(
-          'There is no such account associated with this email address'
-        );
-      }
-    } else {
-      setErrorMessage('');
-      setErrorForm(tempError);
-    }
-  };
-
-  const goToShop = () => {
-    navigate('/shop');
-  };
-
-  let title = t('title');
-  let description = t('title');
+  // set images for first time
+  useEffect(() => {
+    getImages();
+  }, []);
 
   return (
-    <Layout>
-      <Hero
-        maxWidth={'500px'}
-        image={'/banner1.png'}
-        title={t('heroTitle') as string}
-        subtitle={t('heroText.description1') as string}
-        ctaText={'shop now'}
-        ctaAction={goToShop}
-        ctaTo={'/shop'}
-      />
-    </Layout>
+    <>
+      <div className="grid grid-nogutter surface-1 text-800">
+        <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+          <section>
+            <span className="block text-6xl font-bold mb-3 line-height-1">
+              Molino Navarenas
+            </span>
+            <div className="text-6xl text-primary font-bold mb-3 line-height-1">
+              Experiencia Rural Unica
+            </div>
+            <p className="mt-0 mb-4 text-700 line-height-3">
+              <b>Molino de Navarenas</b> es un antiguo molino de agua situado en
+              uno de los cañones del río que lleva su mismo nombre, totalmente
+              rehabilitado como casa rural en el año 2019, conservando la
+              estructura de piedra y agregando madera y forja.{' '}
+            </p>
+
+            <Button
+              label="Galeria"
+              type="button"
+              className="mr-3 p-button-raised"
+            />
+            <Button
+              label="Reservar"
+              type="button"
+              className="p-button-outlined"
+              onClick={() => logData()}
+            />
+          </section>
+        </div>
+        <div className="col-12 md:col-6 overflow-hidden">
+          {image && (
+            <GatsbyImage
+              image={image}
+              alt="hero-1"
+              className="md:ml-auto block md:h-full md:hidden"
+            />
+          )}
+          {image && (
+            <GatsbyImage
+              image={image}
+              alt="hero-1"
+              className="hidden md:block md:ml-auto md:h-full"
+              style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }}
+            />
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 
-export default LoginPage;
+export default Index;
 
 export const query = graphql`
   query ($language: String!) {
@@ -105,6 +105,24 @@ export const query = graphql`
           ns
           data
           language
+        }
+      }
+    }
+    allFile(
+      filter: {
+        absolutePath: {
+          regex: "/home/hardy/projects/molino-navarenas-netlify-c/src/images/img/gallery/senderismo/"
+        }
+      }
+    ) {
+      edges {
+        node {
+          id
+          relativeDirectory
+          absolutePath
+          childImageSharp {
+            gatsbyImageData(formats: JPG)
+          }
         }
       }
     }
