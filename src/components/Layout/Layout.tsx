@@ -3,7 +3,7 @@ import 'primeicons/primeicons.css';
 import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import  'primeflex/primeflex.css';
+import 'primeflex/primeflex.css';
 // CSS not modular here to provide global styles
 import './Globals.css';
 import { PrimeReactProvider } from 'primereact/api';
