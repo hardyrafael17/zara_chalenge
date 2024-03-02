@@ -16,7 +16,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
         <link
           id="app-theme"
           rel="stylesheet"
-          href="/themes/lara-dark-blue/theme.css"
+          href="/themes/lara-light-blue/theme.css"
         />
       </Helmet>
       <Layout>{element}</Layout>

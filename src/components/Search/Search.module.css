@@ -1,0 +1,29 @@
+.mainContainer {
+  width: 100%;
+}
+.searchIcon {
+  width: 12px;
+  height: 12px;
+  flex: 0 1 auto;
+}
+
+.searchField {
+  border: none;
+  flex: 1 1 auto;
+  width: 80%
+}
+
+.mainContainer {
+  padding: 12px 16px 12px 16px;
+}
+.innerContainer {
+  width: 100%;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  gap: 8px
+}
+.results {
+  margin-top: 12px;
+}
