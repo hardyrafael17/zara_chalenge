@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 import { graphql, navigate } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const Index = (data: { data: { allFile: { edges: any[] } } }) => {
   const { t } = useTranslation('index');

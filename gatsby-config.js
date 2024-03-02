@@ -66,7 +66,7 @@ module.exports = {
         short_name: `Molino Navarenas`,
         start_url: `/`,
         display: `standalone`,
-        icon: `src/images/icon.png`,
+        icon: `src/images/favicon.png`
       },
     },
   ],
