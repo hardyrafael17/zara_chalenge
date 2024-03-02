@@ -1,19 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 import { Button } from 'primereact/button';
-import { StaticImage } from 'gatsby-plugin-image';
+import { IGatsbyImageData, StaticImage } from 'gatsby-plugin-image';
 import { graphql, navigate } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const Index = (data) => {
+const Index = (data: { data: { allFile: { edges: any[] } } }) => {
   const { t } = useTranslation('index');
-  useEffect(()=>{
-    console.log(data)
-  })
+  const [images, setImages] = useState<IGatsbyImageData[]>([]);
+  const [image, setImage] = useState<IGatsbyImageData | undefined>();
 
-  const gotoCta = () => {
-    navigate('/shop');
+  function getImages() {
+    const imagesArrayLenght = data.data.allFile?.edges?.length;
+    // if the imagesArrayLenght is greater than 0, then we get a random number that's less or equal to the imagesArrayLenght
+    const randomImageIndex = imagesArrayLenght
+      ? Math.floor(Math.random() * imagesArrayLenght)
+      : 0;
+    data.data.allFile?.edges?.forEach((objectNode, index) => {
+      const currentImage = getImage(
+        objectNode.node.childImageSharp.gatsbyImageData
+      );
+      if (!image && randomImageIndex === index) setImage(currentImage);
+      if (currentImage)
+        setImages((prevImages) => [...prevImages, currentImage]);
+    });
+  }
+
+  // logs the image data from childImageSharp and also sets a new image to the state, the image should be random
+  const logData = () => {
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    setImage(randomImage);
+    data.data.allFile?.edges?.forEach((objectNode) =>
+      console.log(objectNode.node)
+    );
   };
+
+  // set images for first time
+  useEffect(() => {
+    getImages();
+  }, []);
 
   return (
     <>
@@ -42,21 +67,26 @@ const Index = (data) => {
               label="Reservar"
               type="button"
               className="p-button-outlined"
+              onClick={() => logData()}
             />
           </section>
         </div>
         <div className="col-12 md:col-6 overflow-hidden">
-          <StaticImage
-            src="../../static/img/IMG_20191101_114914.jpg"
-            alt="hero-1"
-            className="md:ml-auto block md:h-full md:hidden"
-          />
-          <StaticImage
-            src="../../static/img/IMG_20191101_114914.jpg"
-            alt="hero-1"
-            className="hidden md:block md:ml-auto md:h-full"
-            style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }}
-          />
+          {image && (
+            <GatsbyImage
+              image={image}
+              alt="hero-1"
+              className="md:ml-auto block md:h-full md:hidden"
+            />
+          )}
+          {image && (
+            <GatsbyImage
+              image={image}
+              alt="hero-1"
+              className="hidden md:block md:ml-auto md:h-full"
+              style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }}
+            />
+          )}
         </div>
       </div>
     </>
@@ -78,13 +108,21 @@ export const query = graphql`
         }
       }
     }
-    someOtherData: allFile {
+    allFile(
+      filter: {
+        absolutePath: {
+          regex: "/home/hardy/projects/molino-navarenas-netlify-c/src/images/img/gallery/senderismo/"
+        }
+      }
+    ) {
       edges {
         node {
-          relativePath
-          prettySize
-          extension
-          birthTime(fromNow: true)
+          id
+          relativeDirectory
+          absolutePath
+          childImageSharp {
+            gatsbyImageData(formats: JPG)
+          }
         }
       }
     }
