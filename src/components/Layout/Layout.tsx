@@ -6,11 +6,8 @@ import 'primeflex/primeflex.css';
 // CSS not modular here to provide global styles
 import './Globals.css';
 import { PrimeReactProvider } from 'primereact/api';
+import { HeroProvider } from '../../context/HeroProvider';
 import { createEvent, createStore } from 'effector';
-import { Config, businessConfig } from '../../websiteContent';
-export const $business = createStore<Config>(businessConfig);
-export const setBusiness = createEvent<Config>();
-$business.on(setBusiness, (_, business) => business);
 
 const Layout = ({
   children,
@@ -22,10 +19,12 @@ const Layout = ({
   return (
     <>
       {/* needed for themes */}
-      <PrimeReactProvider value={{ appendTo: 'self' }}>
+      {/* <PrimeReactProvider value={{ appendTo: 'self' }}> */}
+      <HeroProvider>
         <Header />
         <main>{children}</main>
-      </PrimeReactProvider>
+      </HeroProvider>
+      {/* </PrimeReactProvider> */}
     </>
   );
 };

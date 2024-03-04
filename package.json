@@ -4,6 +4,7 @@
   "private": true,
   "description": "An e-commerce theme designed by Matter Design for Netlify.",
   "author": "Hardy Jimenez",
+  "license": "MIT",
   "keywords": [
     "gatsby"
   ],

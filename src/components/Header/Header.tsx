@@ -2,12 +2,17 @@ import React, { useState, useEffect, createRef, useRef } from 'react';
 import * as styles from './Header.module.css';
 import { StaticImage } from 'gatsby-plugin-image';
 import { classNames } from 'primereact/utils';
+import { useContext } from 'react';
+import { HeroContext } from '../../context/HeroProvider';
 
 export const Header = () => {
   const [menuItems, setMenuItems] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>(['TODO']);
+  const HeroContextValue = useContext(HeroContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log('HeroContextValue', HeroContextValue);
+  }, []);
   // TODO - favorite state
 
   const marvelLogoSrc = '../../assets/img/headerLogo.png';
