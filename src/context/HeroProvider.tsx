@@ -30,7 +30,8 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const searchForHeroes = (searchInput: string) => {};
   useEffect(() => {
     axios
-      .get('http://localhost:8888/.netlify/functions/get-marvel-characters')
+      // .get('https://zara-chalenge.netlify.app/.netlify/functions/get-marvel-characters')
+      .get('https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=spider&apikey=f3c16bcc557f4d4006b0806b54190952')
       .then((response) => {
         console.log('response', response);
       })
