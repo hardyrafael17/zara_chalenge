@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-ecommerce-theme",
+  "name": "Chalenge-Marvel",
   "version": "1.0.0",
   "private": true,
   "description": "An e-commerce theme designed by Matter Design for Netlify.",
@@ -17,11 +17,13 @@
     "plop": "plop"
   },
   "dependencies": {
+    "@netlify/functions": "^2.6.0",
     "@netlify/plugin-gatsby": "^3.8.0",
     "@types/js-yaml": "^4.0.9",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router": "^5.1.20",
     "autoprefixer": "^10.4.16",
+    "axios": "^1.6.7",
     "cypress": "^10.0.3",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",

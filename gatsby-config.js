@@ -1,5 +1,6 @@
 const { languages, defaultLanguage } = require('./src/languages');
 
+
 module.exports = {
   siteMetadata: {
     title: `Molino Navarenas`,

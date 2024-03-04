@@ -2,6 +2,8 @@
   command = "gatsby build"
   functions = "netlify/functions"
   publish = "public"
+[functions]
+  node_bundler = "esbuild"
 
 [[plugins]]
   package = "@netlify/plugin-gatsby"
