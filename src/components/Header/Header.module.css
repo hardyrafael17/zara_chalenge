@@ -15,6 +15,9 @@
   height: 52px;
   width: 130px;
 }
+.logoWrapper:hover {
+  cursor: pointer;
+}
 
 .hidden {
   display: none;
@@ -32,9 +35,11 @@
   flex-wrap: 'nowrap';
   gap: 8px;
 }
+.favoritesContainer:hover {
+  cursor: pointer;
+}
 
 .favoriteBadge {
   height: 21.68px;
   width: 24px;
 }
-

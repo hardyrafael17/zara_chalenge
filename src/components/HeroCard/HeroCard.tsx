@@ -1,22 +1,41 @@
-import React, { useState, useEffect, createRef, useRef } from 'react';
+import React, { useState, useEffect, createRef, useRef, useContext } from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import * as styles from './HeroCard.module.css';
 import { classNames } from 'primereact/utils';
 import FavoriteHeart from '../Attribute/FavoriteHeart';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import {HeroContext } from '../../context/HeroProvider';
 
-export const HeroCard = ({ result }: { result: number }) => {
-  const [cardProps, setCardProps] = useState<any[]>([]);
+export const HeroCard = ({ result }: { result: any }) => {
+  const heroContextValue = useContext(HeroContext);
 
-  useEffect(() => {}, []);
+  const isThisFavorite = () => {
+    return heroContextValue.favoriteHeroes.some((h) => h.id === result.id);
+  };
 
-  const searchIcon = '../../assets/img/searchIcon.png';
+  const isFavorite = isThisFavorite();
+
   const marvelRed = false;
+
   const nameContainerRed = false;
+
+  const handleFavoriteClick = () => {
+    console.log(result)
+    if (isFavorite) {
+      heroContextValue.removeFavorite(result);
+    } else {
+      heroContextValue.addFavorite(result);
+    }
+  };
 
   return (
     <div className={styles.heroCardContainer}>
       <div className={styles.heroCardUpperBody}>
-        <div className={styles.upperBodyLowerBar}></div>
+        <img
+          className={styles.heroCardImage}
+          src={result.thumbnail.path + '.' + result.thumbnail.extension}
+          alt={`Hero ${result.name}`}
+        />
       </div>
       <div
         className={classNames([
@@ -30,12 +49,19 @@ export const HeroCard = ({ result }: { result: number }) => {
             marvelRed ? styles.backgroundRed : styles.backgroundBlack,
           ])}
         >
-          <p className={styles.heroName}>Hero Name</p>
-          <FavoriteHeart
-            isFavorite={true}
-            isCounter={true}
-            favoriteCounter={result}
-          />
+          <p className={styles.heroName}>{result.name}</p>
+          <div
+            className={styles.favoriteHeartContainer}
+            onClick={() => {
+              handleFavoriteClick();
+            }}
+          >
+            <FavoriteHeart
+              isFavorite={isThisFavorite()}
+              isCounter={false}
+              favoriteCounter={result}
+            />
+          </div>
         </div>
       </div>
       <div className={styles.heroCardFooter}>

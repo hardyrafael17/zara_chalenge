@@ -3,15 +3,16 @@ import * as styles from './Search.module.css';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useContext } from 'react';
 import { HeroContext } from '../../context/HeroProvider';
+import { useLocation } from '@reach/router';
 
 export const Search = () => {
-  const [result, setResult] = useState<any[]>([]);
-  const HeroContextValue = useContext(HeroContext);
+  const path = useLocation().pathname
 
+  const heroContextValue = useContext(HeroContext);
   const handleChange = (e: any) => {
     e.preventDefault();
-    HeroContextValue.setSearchInput(e.target.value);
-  }
+    heroContextValue.handleInputChange(e.target.value, path);
+  };
 
   const searchIcon = '../../assets/img/searchIcon.png';
 
@@ -24,7 +25,7 @@ export const Search = () => {
           alt="search input field"
         />
         <input
-          value={HeroContextValue.searchInput}
+          value={heroContextValue.searchInput}
           type="text"
           id="search"
           name="search"
@@ -33,7 +34,9 @@ export const Search = () => {
           onChange={(e) => handleChange(e)}
         />
       </div>
-      <div className={styles.results}>Results</div>
+      <div className={styles.results}>{`${heroContextValue.allHeroes.length} ${
+        heroContextValue.allHeroes.length > 1 ? 'Results' : 'result'
+      }`}</div>
     </div>
   );
 };

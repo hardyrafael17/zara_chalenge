@@ -17,18 +17,17 @@ const FavoriteHeart = ({isFavorite = false, isCounter = false, favoriteCounter }
           isFavorite ?  styles.favoriteBadge : styles.hidden,
           styles.image
         ])}
-          src={outlinedWhiteHeart}
-          alt="favorites heart indicator"
+          src={filledRedHeart}
+          alt="no favorite heart indicator"
         />
         <StaticImage
           className={classNames([
           !isFavorite ?  styles.favoriteBadge : styles.hidden,
           styles.image
           ])}
-          src={filledRedHeart}
-          alt="favorites heart indicator"
+          src={outlinedWhiteHeart}
+          alt="no favorite heart indicator"
         />
-        <div className={styles.counter}>?</div>
       </div>
   )
 }

@@ -1,23 +1,15 @@
-import React, { useState, useEffect, createRef, useRef } from 'react';
+import React, { useState, useEffect, createRef, useRef, useContext } from 'react';
 import * as styles from './SearchResults.module.css';
-import { StaticImage } from 'gatsby-plugin-image';
 import HeroCard from '../HeroCard';
+import HeroContext from '../../context/HeroProvider';
 
 export const SearchResults = () => {
-  const [result, setResult] = useState<any[]>([]);
 
-  const mockedResults = []
-  for (let i = 0; i < 7; i++) {
-    mockedResults.push(i);
-  }
-
-  useEffect(() => {}, []);
-
-  const searchIcon = '../../assets/img/searchIcon.png';
+  const heroes = useContext(HeroContext).searchResults;
 
   return (
     <div className={styles.mainContainer}>
-      {mockedResults.map((result, index) => {
+      {heroes.map((result, index) => {
         return <HeroCard key={index} result={result} />;
       })}
     </div>

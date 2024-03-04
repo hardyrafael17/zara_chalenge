@@ -6,17 +6,37 @@
   position: relative;
 }
 
+.heroCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  border-bottom: 5.38px solid #ec1d24;
+}
+
+.favoriteHeartContainer {
+  padding: 4px;
+  padding-right: 0;
+
+}
+.favoriteHeartContainer:hover {
+  cursor: pointer;
+}
 
 .heroCardUpperBody {
-  display: flex;
-  flex-direction: column-reverse;
+  width: 172.5px;
   height: 182.59px;
   background-color: #d9d9d9;
+  position: relative;
 }
 
 .upperBodyLowerBar {
   height: 5.38px; /* TODO remove this amount from the height of the upper body */
   background-color: #ec1d24;
+  position: absolute;
+  z-index: 1;
+  bottom: 0
 }
 
 .herCardLowerBody {
@@ -73,5 +93,10 @@
   color: white;
   margin: 0;
   padding: 0;
+  padding-right: 8px;
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
