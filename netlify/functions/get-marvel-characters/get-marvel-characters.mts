@@ -1,41 +1,19 @@
 // // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
-// import axios from 'axios';
-// import { Context } from "@netlify/functions";
-
-// const handler = async function (event, context) {
-//   const requestKey = event.headers['MARVEL_API_KEY'];
-//   const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${requestKey}`;
-//   try {
-//     console.log(requestKey)
-//     const response = await axios.get(url);
-//     return {
-//       statusCode: 200,
-//       body: JSON.stringify(response.data),
-//     };
-//   } catch (error) {
-//     return {
-//       statusCode: error.response ? error.response.status : 500, 
-//       body: `${error.toString()} ${requestKey}` 
-//     };
-//   }
-// };
-
-// module.exports = { handler };
-
-
-import { Context } from "@netlify/functions";
+import { Context } from '@netlify/functions';
+import axios from 'axios';
 
 export default async (req: Request, context: Context) => {
-  const requestKey = req.headers.get("MARVEL_API_KEY");
-  const allValues = Netlify.env.toObject();
-  const otherValue = process.env.MARVEL_API_KEY;
-  const apiKey = Netlify.env.get("MARVEL_API_KEY");
-  console.log(apiKey, requestKey, otherValue)
-  console.log(allValues)
-
-  if (requestKey === apiKey) {
-    return new Response("Welcome!");
+  const apiKey = Netlify.env.get('MARVEL_API_KEY');
+  const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${apiKey}`;
+  try {
+    await axios.get(url).then((response) => {
+      return new Response(JSON.stringify(response.data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    return new Response('Error', { status: error.response.status });
   }
-
-  return new Response("Sorry, no access for you.", { status: 401 });
 };
