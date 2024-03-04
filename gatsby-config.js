@@ -8,7 +8,16 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-graphql-codegen`,
-    'gatsby-plugin-postcss',
+    {
+      resolve: 'gatsby-plugin-postcss',
+      options: {
+        sourceMap: true,
+        postcssOptions: {
+          map: true,
+          absolute: true
+        },
+      },
+    },
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-sharp',
@@ -66,7 +75,7 @@ module.exports = {
         short_name: `Molino Navarenas`,
         start_url: `/`,
         display: `standalone`,
-        icon: `src/images/favicon.png`
+        icon: `src/images/favicon.png`,
       },
     },
   ],

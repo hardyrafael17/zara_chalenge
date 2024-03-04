@@ -11,10 +11,13 @@ export const Search = () => {
   const searchIcon = '../../assets/img/searchIcon.png';
 
   return (
-
-<div className={styles.mainContainer}>
-    <div className={styles.innerContainer}>
-        <StaticImage className={styles.searchIcon} src={searchIcon} alt="search input field" />
+    <div className={styles.mainContainer}>
+      <div className={styles.innerContainer}>
+        <StaticImage
+          className={styles.searchIcon}
+          src={searchIcon}
+          alt="search input field"
+        />
         <input
           type="text"
           id="search"
@@ -24,7 +27,7 @@ export const Search = () => {
         />
       </div>
       <div className={styles.results}>Results</div>
-      </div>
+    </div>
   );
 };
 export default Search;

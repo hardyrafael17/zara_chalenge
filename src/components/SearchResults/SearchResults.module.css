@@ -1,0 +1,8 @@
+.mainContainer {
+ /* background-color: lightblue; */
+ display: flex;
+ flex-wrap: wrap;
+ gap: 16px;
+ padding-top: 0;
+ /* justify-content: space-between; */
+}

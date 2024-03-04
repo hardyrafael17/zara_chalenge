@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 /* background color black */
 .header {
   background-color: black;
   height: 84px;
-  padding: 16px 48px;
+  padding-left: 16px;
+  padding-right: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,6 +18,11 @@
 
 .hidden {
   display: none;
+}
+
+.counter {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: white;
 }
 
 .favoritesContainer {

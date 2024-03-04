@@ -1,4 +1,6 @@
 .mainContainer {
+  margin-top: 24px;
+  margin-bottom: 24px;
   width: 100%;
 }
 .searchIcon {
@@ -13,9 +15,10 @@
   width: 80%
 }
 
-.mainContainer {
-  padding: 12px 16px 12px 16px;
+.searchField:focus {
+  outline: none;
 }
+
 .innerContainer {
   width: 100%;
   border-bottom: 1px solid #000;

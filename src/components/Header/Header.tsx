@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef, useRef } from 'react';
 import * as styles from './Header.module.css';
 import { StaticImage } from 'gatsby-plugin-image';
+import { classNames } from 'primereact/utils';
 
 export const Header = () => {
   const [menuItems, setMenuItems] = useState<any[]>([]);
@@ -23,11 +24,11 @@ export const Header = () => {
           alt="favorites heart indicator"
         />
         <StaticImage
-          className={favorites.length ? styles.favoriteBadge : styles.hidden}
+          className={classNames([styles.favoriteBadge])}
           src={filledRedHeart}
           alt="favorites heart indicator"
         />
-        <div className="favorte counter">?</div>
+        <div className={classNames([styles.counter])}>3</div>
       </div>
     </header>
   );

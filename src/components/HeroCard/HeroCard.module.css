@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.heroCardContainer {
+  height: 245px;
+  width: 172.5px;
+  position: relative;
+}
+
+
+.heroCardUpperBody {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 182.59px;
+  background-color: #d9d9d9;
+}
+
+.upperBodyLowerBar {
+  height: 5.38px; /* TODO remove this amount from the height of the upper body */
+  background-color: #ec1d24;
+}
+
+.herCardLowerBody {
+  height: 48.73px;
+}
+.heroCardNameContainer {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: no-wrap;
+  justify-content: space-between;
+  color: white;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.heroCardFooter {
+  display: flex;
+  height: 12.65px;
+}
+
+.rectangle {
+  display: inline-block;
+  height: 12.65px;
+  flex-grow: 1;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+}
+.backgroundRed {
+  background-color: #ec1d24;
+}
+.backgroundBlack {
+  background-color: black;
+}
+
+.boaderBlack {
+  border-top: 12.65px solid black; /* height of the triangle */
+  border-right: 12.65px solid transparent; /* base of the triangle */
+}
+.borderRed {
+  border-top: 12.65px solid #ec1d24; /* height of the triangle */
+  border-right: 12.65px solid transparent; /* base of the triangle */
+}
+
+.heroName {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  line-height: 16.41px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+

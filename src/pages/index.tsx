@@ -4,7 +4,7 @@ import { graphql, navigate } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Search from '../components/Search';
 import * as styles from './index.module.css';
-import SearchResults from '../components/SerachResults/Search';
+import SearchResults from '../components/SearchResults';
 
 const Index = (data: { data: { allFile: { edges: any[] } } }) => {
   const { t } = useTranslation('index');
@@ -13,10 +13,9 @@ const Index = (data: { data: { allFile: { edges: any[] } } }) => {
   }, []);
 
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.mainBody}>
       <Search />
       <SearchResults />
-      <h1>Main</h1>
     </div>
   );
 };
