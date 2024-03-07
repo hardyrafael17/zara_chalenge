@@ -1,0 +1,45 @@
+.favoritesTitle {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 37.5px;
+  text-transform: uppercase;
+  margin-top: 11px;
+} 
+
+.hidden {
+  display: none;
+}
+
+.animateIn {
+  animation: fadeIn ease-in 1s forwards;
+  max-height: 0;
+  display: block;
+}
+
+.animateOut {
+  animation: fadeOut ease-out 1s forwards;
+  max-height: 100vh; /* Adjust as needed */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    opacity: 1;
+    max-height: 100vh; /* Adjust as needed */
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    max-height: 100vh; /* Adjust as needed */
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+

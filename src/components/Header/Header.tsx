@@ -7,21 +7,21 @@ import { HeroContext } from '../../context/HeroProvider';
 import { navigate } from 'gatsby';
 
 export const Header = () => {
-  const HeroContextValue = useContext(HeroContext);
-  const favoriteCount = HeroContextValue.favoriteHeroes.length;
+  const heroContextValue = useContext(HeroContext);
+  const favoriteCount = heroContextValue.favoriteHeroes.length;
   const isFavorite = favoriteCount > 0;
 
   const marvelLogoSrc = '../../assets/img/headerLogo.png';
   const outlinedWhiteHeart = '../../assets/img/outlinedWhiteHeart.png';
   const filledRedHeart = '../../assets/img/redHeart.png';
-  console.log("rendefing")
+  console.log('rendefing');
 
   return (
     <header className={styles.header}>
       <div
-        onClick={() => { 
-          console.log('navigating');
-          navigate('/');
+        onClick={() => {
+          heroContextValue.setSearchInput('');
+          heroContextValue.setShowFavoritesSearch(false);
         }}
         className={styles.logoWrapper}
       >
@@ -30,8 +30,10 @@ export const Header = () => {
       <div
         className={styles.favoritesContainer}
         onClick={() => {
-          console.log('navigating');
-          navigate('/favorites/');
+          heroContextValue.setSearchInput('');
+          heroContextValue.setShowFavoritesSearch(
+            !heroContextValue.showFavoritesSearch
+          );
         }}
       >
         <StaticImage

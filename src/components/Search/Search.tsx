@@ -35,7 +35,7 @@ export const Search = () => {
         />
       </div>
       <div className={styles.results}>{`${heroContextValue.allHeroes.length} ${
-        heroContextValue.allHeroes.length > 1 ? 'Results' : 'result'
+        heroContextValue.allHeroes.length !== 1 ? 'Results' : 'result'
       }`}</div>
     </div>
   );

@@ -26,6 +26,14 @@ const defaultState = {
   removeFavorite: (hero: any) => {
     hero;
   },
+  showFavoritesSearch: false,
+  showCharacterDetails: false,
+  setShowFavoritesSearch: undefined as unknown as Dispatch<
+    SetStateAction<boolean>
+  >,
+  setShowCharacterDetails: undefined as unknown as Dispatch<
+    SetStateAction<boolean>
+  >,
 };
 
 interface Props {
@@ -42,15 +50,15 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null
   );
+  const [showFavoritesSearch, setShowFavoritesSearch] = useState(false);
+  const [showCharacterDetails, setShowCharacterDetails] = useState(false);
   const location = useLocation().pathname;
 
   const addFavorite = (hero: any) => {
-    console.log('addFavorite', hero);
     setFavoriteHeroes([...favoriteHeroes, hero]);
   };
 
   const removeFavorite = (hero: any) => {
-    console.log('removeFavorite', hero);
     const favoritesNew = favoriteHeroes.filter((h) => h.id !== hero.id);
     setFavoriteHeroes([...favoritesNew]);
   };
@@ -91,30 +99,29 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     }
 
     setSearchInput(inputValue);
-    console.log('searchInput', inputValue);
 
     // Set a new timeout to perform the search after 3 seconds of inactivity
-    if (localtion === '/favorites/') {
+    if (showFavoritesSearch) {
       searchForFavoriteHeroes(inputValue);
     } else {
       setTypingTimeout(
         setTimeout(() => {
           // Perform search operation here (e.g., call an API with the query)
-          console.log('Performing search for:', inputValue);
           searchForHeroes(inputValue);
           // For demonstration, let's just set some dummy search results
         }, 1000)
       );
     }
   };
-  useEffect(() => {
-    setSearchInput('');
-    if (location === '/favorites/') {
+
+  useEffect (() => {
+    if (showFavoritesSearch) {
       setSearchResults(favoriteHeroes);
     } else {
       setSearchResults(allHeroes);
     }
-  }, [location]);
+
+  },[showFavoritesSearch])
 
   return (
     <HeroContext.Provider
@@ -127,6 +134,10 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         handleInputChange: handleInputChange,
         addFavorite: addFavorite,
         removeFavorite: removeFavorite,
+        setShowFavoritesSearch: setShowFavoritesSearch,
+        setShowCharacterDetails: setShowCharacterDetails,
+        showFavoritesSearch,
+        showCharacterDetails,
       }}
     >
       {children}

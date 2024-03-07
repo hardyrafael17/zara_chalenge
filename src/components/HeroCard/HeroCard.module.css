@@ -4,6 +4,7 @@
   height: 245px;
   width: 172.5px;
   position: relative;
+  cursor: pointer;
 }
 
 .heroCardImage {
@@ -18,7 +19,6 @@
 .favoriteHeartContainer {
   padding: 4px;
   padding-right: 0;
-
 }
 .favoriteHeartContainer:hover {
   cursor: pointer;
@@ -36,13 +36,14 @@
   background-color: #ec1d24;
   position: absolute;
   z-index: 1;
-  bottom: 0
+  bottom: 0;
 }
 
-.herCardLowerBody {
+.heroCardLowerBody {
   height: 48.73px;
 }
 .heroCardNameContainer {
+  position: relative;
   flex-direction: row;
   display: flex;
   flex-wrap: no-wrap;
@@ -51,6 +52,37 @@
   padding-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
+  height: 62px;
+  background: black;
+  overflow: hidden;
+}
+.heroCardNameContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: red;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 2s;
+}
+
+.heroCardNameContainerHover::before {
+  transform: scaleY(1);
+}
+
+
+.heroCardLowerBody::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: red;
+  transition: height 2s;
 }
 
 .heroCardFooter {
@@ -64,10 +96,6 @@
   flex-grow: 1;
 }
 
-.triangle {
-  width: 0;
-  height: 0;
-}
 .backgroundRed {
   background-color: #ec1d24;
 }
@@ -75,13 +103,14 @@
   background-color: black;
 }
 
-.boaderBlack {
-  border-top: 12.65px solid black; /* height of the triangle */
-  border-right: 12.65px solid transparent; /* base of the triangle */
-}
-.borderRed {
-  border-top: 12.65px solid #ec1d24; /* height of the triangle */
-  border-right: 12.65px solid transparent; /* base of the triangle */
+.borderTriangle {
+  width: 0;
+  height: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-bottom: 12.65px solid white;
+  border-left: 12.65px solid transparent;
 }
 
 .heroName {
@@ -99,4 +128,3 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-

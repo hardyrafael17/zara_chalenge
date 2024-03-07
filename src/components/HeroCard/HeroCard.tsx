@@ -1,13 +1,15 @@
-import React, { useState, useEffect, createRef, useRef, useContext } from 'react';
-import { StaticImage } from 'gatsby-plugin-image';
+import React, {
+  useState,
+  useContext,
+} from 'react';
 import * as styles from './HeroCard.module.css';
 import { classNames } from 'primereact/utils';
 import FavoriteHeart from '../Attribute/FavoriteHeart';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import {HeroContext } from '../../context/HeroProvider';
+import { HeroContext } from '../../context/HeroProvider';
 
 export const HeroCard = ({ result }: { result: any }) => {
   const heroContextValue = useContext(HeroContext);
+  const [isHovered, setIsHovered] = useState(false);
 
   const isThisFavorite = () => {
     return heroContextValue.favoriteHeroes.some((h) => h.id === result.id);
@@ -15,12 +17,8 @@ export const HeroCard = ({ result }: { result: any }) => {
 
   const isFavorite = isThisFavorite();
 
-  const marvelRed = false;
-
-  const nameContainerRed = false;
-
   const handleFavoriteClick = () => {
-    console.log(result)
+    console.log(result);
     if (isFavorite) {
       heroContextValue.removeFavorite(result);
     } else {
@@ -29,7 +27,15 @@ export const HeroCard = ({ result }: { result: any }) => {
   };
 
   return (
-    <div className={styles.heroCardContainer}>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+
+      onClick={() => {
+        handleFavoriteClick();
+      }}
+      className={styles.heroCardContainer}
+    >
       <div className={styles.heroCardUpperBody}>
         <img
           className={styles.heroCardImage}
@@ -37,25 +43,14 @@ export const HeroCard = ({ result }: { result: any }) => {
           alt={`Hero ${result.name}`}
         />
       </div>
-      <div
-        className={classNames([
-          styles.herCardLowerBody,
-          marvelRed ? styles.backgroundRed : styles.backgroundBlack,
-        ])}
-      >
-        <div
+      <div className={classNames([styles.heroCardLowerBody])}>
+        <div 
           className={classNames([
-            styles.heroCardNameContainer,
-            marvelRed ? styles.backgroundRed : styles.backgroundBlack,
-          ])}
-        >
+            styles.heroCardNameContainer, 
+            isHovered ? styles.heroCardNameContainerHover: ""]
+          )}>
           <p className={styles.heroName}>{result.name}</p>
-          <div
-            className={styles.favoriteHeartContainer}
-            onClick={() => {
-              handleFavoriteClick();
-            }}
-          >
+          <div className={styles.favoriteHeartContainer }>
             <FavoriteHeart
               isFavorite={isThisFavorite()}
               isCounter={false}
@@ -63,20 +58,7 @@ export const HeroCard = ({ result }: { result: any }) => {
             />
           </div>
         </div>
-      </div>
-      <div className={styles.heroCardFooter}>
-        <div
-          className={classNames([
-            styles.rectangle,
-            marvelRed ? styles.backgroundRed : styles.backgroundBlack,
-          ])}
-        ></div>
-        <div
-          className={classNames([
-            styles.triangle,
-            marvelRed ? styles.borderRed : styles.boaderBlack,
-          ])}
-        ></div>
+        <div className={classNames([styles.borderTriangle])}></div>
       </div>
     </div>
   );
