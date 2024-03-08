@@ -4,6 +4,9 @@ import { classNames } from 'primereact/utils';
 import HeroContext from '../../context/HeroProvider';
 
 export const CharacterDetails = () => {
+  const heroes = useContext(HeroContext).searchResults;
+
+
   const heroProviderValue = useContext(HeroContext);
   return (
     <div className={styles.mainContainer}>
@@ -11,7 +14,7 @@ export const CharacterDetails = () => {
         <div className={styles.flexContainer}>
           <div className={styles.imageContainer}>
             <div className={styles.imageFlexItem}>
-              <img className={styles.mainImge} alt="test" src="image.jpg" />
+              <img className={styles.mainImage} alt="test" src="image.jpg" />
             </div>
           </div>
           <div className={styles.descriptionContainer}>

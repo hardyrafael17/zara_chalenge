@@ -3,11 +3,11 @@ import 'primeicons/primeicons.css';
 import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import 'primeflex/primeflex.css';
+
 // CSS not modular here to provide global styles
+import './Reset.css';
 import './Globals.css';
-import { PrimeReactProvider } from 'primereact/api';
 import { HeroProvider } from '../../context/HeroProvider';
-import { createEvent, createStore } from 'effector';
 
 const Layout = ({
   children,
@@ -18,13 +18,10 @@ const Layout = ({
 }) => {
   return (
     <>
-      {/* needed for themes */}
-      {/* <PrimeReactProvider value={{ appendTo: 'self' }}> */}
       <HeroProvider>
         <Header />
         <main>{children}</main>
       </HeroProvider>
-      {/* </PrimeReactProvider> */}
     </>
   );
 };

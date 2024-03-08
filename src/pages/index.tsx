@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Search from '../components/Search';
-import * as styles from './index.module.css';
 import SearchResults from '../components/SearchResults';
 import { useLocation } from '@reach/router';
 import Favorites from '../components/Favorites';
@@ -19,8 +18,8 @@ const Index = () => {
   return (
     <div>
       {showFavorites && <Favorites />}
-      {false && <Search />}
-      {false && <SearchResults />}
+      <Search />
+      <SearchResults />
       <CharacterDetails />
     </div>
   );
