@@ -17,7 +17,6 @@ export const HeroCard = ({ result }: { result: any }) => {
 
   const handleFavoriteClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
-    console.log(result);
     if (isFavorite) {
       heroContextValue.removeFavorite(result);
     } else {

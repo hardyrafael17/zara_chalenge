@@ -15,13 +15,12 @@ export const Header = () => {
   const marvelLogoSrc = '../../assets/img/headerLogo.png';
   const outlinedWhiteHeart = '../../assets/img/outlinedWhiteHeart.png';
   const filledRedHeart = '../../assets/img/redHeart.png';
-  console.log('rendefing');
 
   const location = useLocation().pathname;
   useEffect(() => {
+    console.log(process.env);
     if (location === '/favorites/')
       heroContextValue.setShowFavoritesSearch(true);
-
   }, [location]);
 
   return (

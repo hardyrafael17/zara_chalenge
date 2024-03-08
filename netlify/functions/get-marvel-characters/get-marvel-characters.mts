@@ -1,35 +1,42 @@
-// // Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
 import { Context } from '@netlify/functions';
 import axios from 'axios';
 import Crypto from 'crypto';
 
 export default async (req: Request, context: Context) => {
+  // Timestamp
+  const ts = Math.floor(Date.now() / 1000).toString();
 
-  function generateMD5(timestamp, privateKey, publicKey) {
-    const input = `${timestamp}${privateKey}${publicKey}`;
-    return Crypto.createHash('md5').update(input).digest('hex');
-  }
+  // Keys
+  const publicKey: string =
+    Netlify.env.get('MARVEL_API_KEY') || 'no_public_key';
+  const privateKey: string =
+    Netlify.env.get('MARVEL_API_KEY_PRIVATE') || 'no_private_key';
 
-  function getTimestamp() {
-    return new Date().getTime();
-  }
+  // Hash and encodings
+  const hash = Crypto.createHash('md5');
+  const combinedString: string = ts + privateKey + publicKey;
+  const m_hash_str: string = hash.update(combinedString).digest('hex');
 
-  const apiKey = Netlify.env.get('MARVEL_API_KEY');
-  const timeStamp = getTimestamp();
-  const hash = generateMD5(timeStamp, Netlify.env.get('MARVEL_KEY_PRIVATE'), apiKey);
-  console.log('hash', hash);
-  console.log('apiKey', apiKey);
-  console.log('timeStamp', timeStamp);
-  const url = `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=spider&apikey=${apiKey}&ts=${timeStamp}&hash=${hash}`;
-  console.log(url)
-  try {
-    await axios.get(url).then((response) => {
-      return new Response(JSON.stringify(response.data), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+  // All request parameters
+  const payload: { [key: string]: string } = {
+    ts: ts,
+    apikey: publicKey,
+    hash: m_hash_str,
+  };
+
+  // Make request
+  axios
+    .get('https://gateway.marvel.com:443/v1/public/characters', {
+      params: payload,
+    })
+    .then((response) => {
+      if (response.status === 200 && response.statusText === 'OK') {
+        return response;
+      }
+      else
+        throw new Error('Error in response');
+    })
+    .catch((error) => {
+      return error;
     });
-  } catch (error) {
-    return new Response('Error', { status: error.response.status });
-  }
 };

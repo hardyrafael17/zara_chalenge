@@ -1,8 +1,6 @@
 import type { CreatePageArgs, GatsbyNode } from 'gatsby';
 const fs = require('fs');
 const yaml = require('js-yaml');
-// import { businessConfig } from './src/websiteContent';
-import path from 'path';
 
 exports.onCreateWebpackConfig = (helper) => {
   const { stage, actions, getConfig } = helper;
@@ -17,6 +15,7 @@ exports.onCreateWebpackConfig = (helper) => {
     actions.replaceWebpackConfig(config);
   }
 };
+
 // exports.createPages = async ({ actions }: CreatePageArgs) => {
 //   businessConfig.headerLinks.forEach((link, pageIndex) => {
 //     console.log('creating page with path', link.menuLabel);

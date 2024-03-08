@@ -88,8 +88,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           if (response.status === 200 && response.statusText === 'OK') {
             const data = response.data.data.results;
             setCurrentHeroComics((prevState) => [...prevState, ...data]);
-            console.log('from axios');
-            console.log(data);
           } else {
             throw new Error(
               `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
@@ -116,7 +114,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
             if (loaded && total) {
               percentage = Math.floor((loaded * 100) / total);
             }
-            setLoadingProgress(percentage);
+            if (percentage) setLoadingProgress(percentage);
           },
         }
       )
@@ -169,12 +167,32 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
+    // GATSBY_APP_API_URL
+    console.log(process.env.GATSBY_APP_API_URL)
+  },[])
+
+  useEffect(() => {
     if (showFavoritesSearch) {
       setSearchResults(favoriteHeroes);
     } else {
       setSearchResults(allHeroes);
     }
   }, [showFavoritesSearch]);
+
+  const handleRequest = () => {
+    axios
+      .get('http://localhost:8888/.netlify/functions/get-marvel-characters')
+      .then((response) => {
+        if (response.status === 200 && response.statusText === 'OK') {
+          const data = JSON.parse(response.data);
+          return data;
+        }
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <HeroContext.Provider
@@ -196,6 +214,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         currentHeroComics: currentHeroComics,
       }}
     >
+      <button onClick={() => handleRequest()}>Test Axios</button>
       {children}
     </HeroContext.Provider>
   );
