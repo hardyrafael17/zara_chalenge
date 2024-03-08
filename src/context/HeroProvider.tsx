@@ -6,9 +6,9 @@ import React, {
   SetStateAction,
   useEffect,
 } from 'react';
-
 import axios from 'axios';
 import { useLocation } from '@reach/router';
+import navigate from 'gatsby';
 
 const defaultState = {
   allHeroes: [] as string[],
@@ -34,6 +34,11 @@ const defaultState = {
   setShowCharacterDetails: undefined as unknown as Dispatch<
     SetStateAction<boolean>
   >,
+  handleFavoriteHeroClick: (hero: any) => {
+    hero;
+  },
+  currentFavoriteHero: false as any,
+  currentHeroComics: [] as any[],
 };
 
 interface Props {
@@ -52,6 +57,10 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   );
   const [showFavoritesSearch, setShowFavoritesSearch] = useState(false);
   const [showCharacterDetails, setShowCharacterDetails] = useState(false);
+  const [currentFavoriteHero, setCurrentFavoriteHero] = useState<any>(false);
+  const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
   const location = useLocation().pathname;
 
   const addFavorite = (hero: any) => {
@@ -63,10 +72,54 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     setFavoriteHeroes([...favoritesNew]);
   };
 
+  const handleFavoriteHeroClick = (hero: any) => {
+    setCurrentFavoriteHero(hero);
+    handleGetHeroComics(hero);
+    navigate('/character');
+  };
+
+  const handleGetHeroComics = (hero: any) => {
+    let i = 0;
+    while (i < hero.comics.available && i < 10) {
+      axios
+        .get(
+          `${hero.comics.items[i].resourceURI}?apikey=f3c16bcc557f4d4006b0806b54190952`
+        )
+        .then((response) => {
+          if (response.status === 200 && response.statusText === 'OK') {
+            const data = response.data.data.results;
+            setCurrentHeroComics((prevState) => [...prevState, ...data]);
+            console.log('from axios');
+            console.log(data);
+          } else {
+            throw new Error(
+              `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
+            );
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      i++;
+    }
+  };
+
   const searchForHeroes = (searchParam: string) => {
     axios
       .get(
-        `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchParam}&limit=50&apikey=f3c16bcc557f4d4006b0806b54190952`
+        `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchParam}&limit=50&apikey=f3c16bcc557f4d4006b0806b54190952`,
+        {
+          onDownloadProgress: (progressEvent) => {
+            setLoadingProgress(35)
+            const loaded = progressEvent.loaded;
+            const total = progressEvent.total;
+            let percentage;
+            if (loaded && total) {
+              percentage = Math.floor((loaded * 100) / total);
+            }
+            setLoadingProgress(percentage)
+          },
+        }
       )
       .then((response) => {
         if (response.status === 200 && response.statusText === 'OK') {
@@ -74,8 +127,10 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           if (data.length > 0) {
             setSearchResults([...data]);
             setAllHeroes([...data]);
+            setLoadingProgress(100);
           }
         } else {
+          setLoadingProgress(0);
           throw new Error(
             `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
           );
@@ -93,7 +148,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     setSearchResults(data);
   };
 
-  const handleInputChange = (inputValue: string, localtion: string) => {
+  const handleInputChange = (inputValue: string, location: string) => {
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
@@ -114,14 +169,13 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  useEffect (() => {
+  useEffect(() => {
     if (showFavoritesSearch) {
       setSearchResults(favoriteHeroes);
     } else {
       setSearchResults(allHeroes);
     }
-
-  },[showFavoritesSearch])
+  }, [showFavoritesSearch]);
 
   return (
     <HeroContext.Provider
@@ -138,6 +192,9 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         setShowCharacterDetails: setShowCharacterDetails,
         showFavoritesSearch,
         showCharacterDetails,
+        handleFavoriteHeroClick,
+        currentFavoriteHero: currentFavoriteHero,
+        currentHeroComics: currentHeroComics,
       }}
     >
       {children}

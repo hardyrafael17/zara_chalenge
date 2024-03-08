@@ -1,10 +1,7 @@
-import React, {
-  useState,
-  useContext,
-} from 'react';
+import React, { useState, useContext } from 'react';
 import * as styles from './HeroCard.module.css';
 import { classNames } from 'primereact/utils';
-import FavoriteHeart from '../Attribute/FavoriteHeart';
+import FavoriteHeart from '../FavoriteHeart';
 import { HeroContext } from '../../context/HeroProvider';
 
 export const HeroCard = ({ result }: { result: any }) => {
@@ -17,7 +14,8 @@ export const HeroCard = ({ result }: { result: any }) => {
 
   const isFavorite = isThisFavorite();
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
     console.log(result);
     if (isFavorite) {
       heroContextValue.removeFavorite(result);
@@ -25,14 +23,16 @@ export const HeroCard = ({ result }: { result: any }) => {
       heroContextValue.addFavorite(result);
     }
   };
+  const handleCardClick = () => {
+    heroContextValue.handleFavoriteHeroClick(result);
+  };
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-
       onClick={() => {
-        handleFavoriteClick();
+        handleCardClick();
       }}
       className={styles.heroCardContainer}
     >
@@ -44,17 +44,24 @@ export const HeroCard = ({ result }: { result: any }) => {
         />
       </div>
       <div className={classNames([styles.heroCardLowerBody])}>
-        <div 
+        <div
           className={classNames([
-            styles.heroCardNameContainer, 
-            isHovered ? styles.heroCardNameContainerHover: ""]
-          )}>
+            styles.heroCardNameContainer,
+            isHovered ? styles.heroCardNameContainerHover : '',
+          ])}
+        >
           <p className={styles.heroName}>{result.name}</p>
-          <div className={styles.favoriteHeartContainer }>
+          <div
+            onClick={(e) => {
+              handleFavoriteClick(e);
+            }}
+            className={styles.favoriteHeartContainer}
+          >
             <FavoriteHeart
               isFavorite={isThisFavorite()}
               isCounter={false}
               favoriteCounter={result}
+              isHovered={isHovered}
             />
           </div>
         </div>
