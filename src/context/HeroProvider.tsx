@@ -12,7 +12,7 @@ import navigate from 'gatsby';
 
 const defaultState = {
   allHeroes: [] as string[],
-  favoriteHeroes: [] as string[],
+  favoriteHeroes: [] as any[],
   searchResults: [] as string[],
   searchInput: '',
   setSearchInput: undefined as unknown as Dispatch<SetStateAction<string>>,
@@ -75,7 +75,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
     handleGetHeroComics(hero);
-    navigate('/character');
   };
 
   const handleGetHeroComics = (hero: any) => {
@@ -110,14 +109,14 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchParam}&limit=50&apikey=f3c16bcc557f4d4006b0806b54190952`,
         {
           onDownloadProgress: (progressEvent) => {
-            setLoadingProgress(35)
+            setLoadingProgress(35);
             const loaded = progressEvent.loaded;
             const total = progressEvent.total;
             let percentage;
             if (loaded && total) {
               percentage = Math.floor((loaded * 100) / total);
             }
-            setLoadingProgress(percentage)
+            setLoadingProgress(percentage);
           },
         }
       )

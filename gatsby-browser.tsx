@@ -9,7 +9,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   return (
     <>
       <Helmet>
-        <title>Home</title>
+        <title>Marvel</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
       <Layout>{element}</Layout>

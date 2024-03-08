@@ -15,6 +15,23 @@
   max-width: 960px;
 }
 
+.favoriteBadge {
+  width: 24px;
+  height: 21px;
+}
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.titleHeader {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 @media (max-width: 786px) {
   .imageDescriptionContainer {
     flex-wrap: nowrap;
@@ -23,7 +40,6 @@
     max-width: 393px;
   }
 }
-
 
 .mainCointainer {
   width: 100%;
@@ -44,7 +60,7 @@
   height: 210px;
   min-height: 210px;
   position: relative;
-  padding: 48px 48px 20px 16px;
+  padding: 96px 0px 48px 48px;
 }
 
 @media (max-width: 786px) {
@@ -107,16 +123,16 @@ ul {
     display: none;
   }
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 @media (max-width: 786px) {
-  ul, h2Title {
-  padding-left: 16px;
-  padding-right: 16px;
+  ul,
+  h2Title {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
-
 
 li {
   height: 320px;
@@ -167,6 +183,7 @@ img {
   font-weight: 700;
   line-height: 37px;
   text-transform: uppercase;
+  padding-bottom: 24px;
 }
 .h2Title {
   text-transform: uppercase;

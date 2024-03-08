@@ -128,3 +128,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.heroNameHover {
+  z-index: 2;
+}

@@ -5,6 +5,7 @@ import { classNames } from 'primereact/utils';
 import { useContext } from 'react';
 import { HeroContext } from '../../context/HeroProvider';
 import { navigate } from 'gatsby';
+import { useLocation } from '@reach/router';
 
 export const Header = () => {
   const heroContextValue = useContext(HeroContext);
@@ -16,12 +17,20 @@ export const Header = () => {
   const filledRedHeart = '../../assets/img/redHeart.png';
   console.log('rendefing');
 
+  const location = useLocation().pathname;
+  useEffect(() => {
+    if (location === '/favorites/')
+      heroContextValue.setShowFavoritesSearch(true);
+
+  }, [location]);
+
   return (
     <header className={styles.header}>
       <div
         onClick={() => {
           heroContextValue.setSearchInput('');
           heroContextValue.setShowFavoritesSearch(false);
+          navigate('/');
         }}
         className={styles.logoWrapper}
       >
@@ -30,10 +39,9 @@ export const Header = () => {
       <div
         className={styles.favoritesContainer}
         onClick={() => {
-          heroContextValue.setSearchInput('');
-          heroContextValue.setShowFavoritesSearch(
-            !heroContextValue.showFavoritesSearch
-          );
+          if (location !== '/favorites/') {
+            navigate('/favorites');
+          }
         }}
       >
         <StaticImage

@@ -7,15 +7,17 @@ export const Favorites = () => {
   const heroProviderValue = useContext(HeroContext);
 
   return (
-    <div
-      className={classNames([
-        heroProviderValue.showFavoritesSearch
-          ? styles.animateIn
-          : styles.animateOut,
-        styles.favoritesTitle,
-      ])}
-    >
-      <p>Favorites</p>
+    <div className={styles.mainContainer}>
+      <div
+        className={classNames([
+          heroProviderValue.showFavoritesSearch
+            ? styles.animateIn
+            : styles.animateOut,
+          styles.favoritesTitle,
+        ])}
+      >
+        <p>Favorites</p>
+      </div>
     </div>
   );
 };

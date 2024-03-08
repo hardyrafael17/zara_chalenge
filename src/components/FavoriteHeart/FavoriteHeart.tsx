@@ -8,23 +8,21 @@ const FavoriteHeart = ({
   isHovered = false,
   isCounter = false,
   favoriteCounter,
+  additionalClassname,
 }: {
   isFavorite: boolean;
   isCounter: boolean;
   favoriteCounter: number;
   isHovered: boolean;
+  additionalClassname?: string;
 }) => {
   const outlinedWhiteHeart = '../../assets/img/outlinedWhiteHeart.png';
   const filledRedHeart = '../../assets/img/redHeart.png';
   const fullWhiteHeart = '../../assets/img/fullWhite.png';
   let showOutlinedWhiteHeart, showFilledRedHeart, showFullWhiteHeart;
-  if(isFavorite && isHovered)
-    showFullWhiteHeart = true;
-  else if (isFavorite && !isHovered)
-    showFilledRedHeart = true;
-  else
-    showOutlinedWhiteHeart = true;
-
+  if (isFavorite && isHovered) showFullWhiteHeart = true;
+  else if (isFavorite && !isHovered) showFilledRedHeart = true;
+  else showOutlinedWhiteHeart = true;
 
   return (
     <div className={styles.favoritesContainer}>
@@ -38,9 +36,7 @@ const FavoriteHeart = ({
       />
       <StaticImage
         className={classNames([
-          showOutlinedWhiteHeart
-            ? styles.favoriteBadge
-            : styles.hidden,
+          showOutlinedWhiteHeart ? styles.favoriteBadge : styles.hidden,
           styles.image,
         ])}
         src={outlinedWhiteHeart}
@@ -48,15 +44,12 @@ const FavoriteHeart = ({
       />
       <StaticImage
         className={classNames([
-          showFullWhiteHeart
-            ? styles.favoriteBadge
-            : styles.hidden,
+          showFullWhiteHeart ? styles.favoriteBadge : styles.hidden,
           styles.image,
         ])}
         src={fullWhiteHeart}
         alt="no favorite heart indicator"
       />
-
     </div>
   );
 };

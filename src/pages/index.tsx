@@ -19,10 +19,8 @@ const Index = () => {
   }, [heroProviderValue.showFavoritesSearch, heroProviderValue.currentFavoriteHero]);
   return (
     <div>
-      {showFavorites && <Favorites />}
       <Search />
       <SearchResults />
-      { heroProviderValue.currentFavoriteHero && <CharacterDetails />}
     </div>
   );
 };

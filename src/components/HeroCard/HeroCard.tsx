@@ -3,6 +3,7 @@ import * as styles from './HeroCard.module.css';
 import { classNames } from 'primereact/utils';
 import FavoriteHeart from '../FavoriteHeart';
 import { HeroContext } from '../../context/HeroProvider';
+import { navigate } from 'gatsby';
 
 export const HeroCard = ({ result }: { result: any }) => {
   const heroContextValue = useContext(HeroContext);
@@ -25,6 +26,7 @@ export const HeroCard = ({ result }: { result: any }) => {
   };
   const handleCardClick = () => {
     heroContextValue.handleFavoriteHeroClick(result);
+    navigate('/character');
   };
 
   return (
@@ -50,7 +52,12 @@ export const HeroCard = ({ result }: { result: any }) => {
             isHovered ? styles.heroCardNameContainerHover : '',
           ])}
         >
-          <p className={styles.heroName}>{result.name}</p>
+          <p className={
+            classNames([
+              styles.heroName,
+              isHovered ? styles.heroNameHover : '',
+            ])
+            }>{result.name}</p>
           <div
             onClick={(e) => {
               handleFavoriteClick(e);
