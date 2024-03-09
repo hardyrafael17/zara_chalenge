@@ -167,11 +167,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    // GATSBY_APP_API_URL
-    console.log(process.env.GATSBY_APP_API_URL)
-  },[])
-
-  useEffect(() => {
     if (showFavoritesSearch) {
       setSearchResults(favoriteHeroes);
     } else {

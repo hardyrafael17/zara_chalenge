@@ -18,7 +18,7 @@ export const Header = () => {
 
   const location = useLocation().pathname;
   useEffect(() => {
-    console.log(process.env);
+    console.log(process.env.GATSBY_MARVEL_API_URL);
     if (location === '/favorites/')
       heroContextValue.setShowFavoritesSearch(true);
   }, [location]);
