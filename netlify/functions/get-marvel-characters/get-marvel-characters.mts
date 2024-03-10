@@ -30,13 +30,10 @@ export default async (req: Request, context: Context) => {
       params: payload,
     })
     .then((response) => {
-      if (response.status === 200 && response.statusText === 'OK') {
-        return response;
-      }
-      else
-        throw new Error('Error in response');
+      console.log(response.data)
+      return JSON.stringify(response.data);
     })
     .catch((error) => {
-      return error;
+      return error
     });
 };

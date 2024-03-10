@@ -8,9 +8,8 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import { useLocation } from '@reach/router';
-import navigate from 'gatsby';
 
-const defaultState = {
+export const defaultState = {
   allHeroes: [] as string[],
   favoriteHeroes: [] as any[],
   searchResults: [] as string[],
@@ -175,18 +174,17 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   }, [showFavoritesSearch]);
 
   const handleRequest = () => {
-    axios
-      .get('http://localhost:8888/.netlify/functions/get-marvel-characters')
-      .then((response) => {
-        if (response.status === 200 && response.statusText === 'OK') {
-          const data = JSON.parse(response.data);
-          return data;
-        }
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const baseUrl = process.env.GATSBY_MARVEL_API_URL || false;
+    if (baseUrl) {
+      axios
+        .get(baseUrl)
+        .then((response) => {
+          console.log(response, 'response >>>>');
+        })
+        .catch((error) => {
+          console.log(error, 'error >>>>');
+        });
+    }
   };
 
   return (
