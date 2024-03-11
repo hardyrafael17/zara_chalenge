@@ -1,8 +1,8 @@
 {
   "name": "Chalenge-Marvel",
   "version": "1.0.0",
-  "private": true,
-  "description": "An e-commerce theme designed by Matter Design for Netlify.",
+  "description": "A Concept of Marvel's website using Gatsby",
+  "private": false,
   "author": "Hardy Jimenez",
   "license": "MIT",
   "keywords": [

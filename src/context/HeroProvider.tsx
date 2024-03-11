@@ -207,7 +207,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         currentHeroComics: currentHeroComics,
       }}
     >
-      <button onClick={() => handleRequest()}>Test Axios</button>
+      {/* <button onClick={() => handleRequest()}>Test Axios</button> */}
       {children}
     </HeroContext.Provider>
   );
