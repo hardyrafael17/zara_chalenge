@@ -13,11 +13,13 @@
   gap: 8px;
 }
 
-.image {
-  margin-top: 8px;
+img.imageFv {
   height: 10.84px;
   width: 12px;
+  object-position: center;
+  position: absolute
 }
+
 
 .favoriteBadge {
   width: 24px;

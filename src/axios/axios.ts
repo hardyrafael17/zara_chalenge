@@ -5,4 +5,3 @@ export const instance = axios.create({
   timeout: 1000
 })
 
-instance.get('param=1')

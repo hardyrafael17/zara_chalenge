@@ -12,9 +12,9 @@ export const Header = () => {
   const favoriteCount = heroContextValue.favoriteHeroes.length;
   const isFavorite = favoriteCount > 0;
 
-  const marvelLogoSrc = '../../assets/img/headerLogo.png';
-  const outlinedWhiteHeart = '../../assets/img/outlinedWhiteHeart.png';
-  const filledRedHeart = '../../assets/img/redHeart.png';
+  const marvelLogoSrc = '/headerLogo.png';
+  const outlinedWhiteHeart = '/outlinedWhiteHeart.png';
+  const filledRedHeart = '/redHeart.png';
 
   const location = useLocation().pathname;
   useEffect(() => {
@@ -23,42 +23,45 @@ export const Header = () => {
   }, [location]);
 
   return (
-    <header className={styles.header}>
-      <div
-        onClick={() => {
-          heroContextValue.setSearchInput('');
-          heroContextValue.setShowFavoritesSearch(false);
-          navigate('/');
-        }}
-        className={styles.logoWrapper}
-      >
-        <StaticImage className={styles.logo} src={marvelLogoSrc} alt="Logo" />
+    <header className={styles.headerHeader}>
+      <div>
+        <img
+          onClick={() => {
+            heroContextValue.setSearchInput('');
+            heroContextValue.setShowFavoritesSearch(false);
+            navigate('/');
+          }}
+          className={styles.logo}
+          src={marvelLogoSrc}
+          alt="Logo"
+        />
       </div>
+
       <div
-        className={styles.favoritesContainer}
+        className={styles.favoriteBadgeAndCounterCointainerHeader}
         onClick={() => {
           if (location !== '/favorites/') {
             navigate('/favorites');
           }
         }}
       >
-        <StaticImage
-          className={classNames([
-            isFavorite ? styles.hidden : styles.favoriteBadge,
-          ])}
-          src={outlinedWhiteHeart}
-          alt="favorites heart indicator"
-        />
-        <StaticImage
-          className={classNames([
-            !isFavorite ? styles.hidden : styles.favoriteBadge,
-          ])}
-          src={filledRedHeart}
-          alt="favorites heart indicator"
-        />
-        <div className={classNames([styles.counter])}>
-          {favoriteCount}
+        <div>
+          <img
+            className={classNames([
+              isFavorite ? styles.hidden : styles.favoriteBadgeHeader,
+            ])}
+            src={outlinedWhiteHeart}
+            alt="favorites heart indicator"
+          />
+          <img
+            className={classNames([
+              !isFavorite ? styles.hidden : styles.favoriteBadgeHeader,
+            ])}
+            src={filledRedHeart}
+            alt="favorites heart indicator"
+          />
         </div>
+        <div className={classNames([styles.counterHeader])}>{favoriteCount}</div>
       </div>
     </header>
   );
