@@ -73,7 +73,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
-    handleGetHeroComics(hero);
+    // handleGetHeroComics(hero);
   };
 
   const handleGetHeroComics = (hero: any) => {
