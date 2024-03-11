@@ -25,7 +25,7 @@ export const HeroCard = ({ result }: { result: any }) => {
   };
   const handleCardClick = () => {
     heroContextValue.handleFavoriteHeroClick(result);
-    navigate('/character');
+    navigate('/character/');
   };
 
   return (

@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import { navigate, useLocation } from '@reach/router';
+import { getParams } from '../axios/getParams';
 
 export const defaultState = {
   allHeroes: [] as string[],
@@ -60,7 +61,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  const location = useLocation().pathname;
 
   const addFavorite = (hero: any) => {
     setFavoriteHeroes([...favoriteHeroes, hero]);
@@ -73,7 +73,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
-    // handleGetHeroComics(hero);
+     handleGetHeroComics(hero);
     navigate('/');
   };
 
@@ -102,10 +102,12 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const searchForHeroes = (searchParam: string) => {
+    // const payload = getParams();
     axios
       .get(
         `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchParam}&limit=50&apikey=f3c16bcc557f4d4006b0806b54190952`,
         {
+          // params: payload,
           onDownloadProgress: (progressEvent) => {
             setLoadingProgress(35);
             const loaded = progressEvent.loaded;
@@ -180,10 +182,10 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
       axios
         .get(baseUrl)
         .then((response) => {
-          console.log(response, 'response >>>>');
+          console.log(response);
         })
         .catch((error) => {
-          console.log(error, 'error >>>>');
+          console.log(error);
         });
     }
   };

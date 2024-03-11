@@ -30,7 +30,6 @@ export default async (req: Request, context: Context) => {
       params: payload,
     })
     .then((response) => {
-      console.log(response.data)
       return JSON.stringify(response.data);
     })
     .catch((error) => {

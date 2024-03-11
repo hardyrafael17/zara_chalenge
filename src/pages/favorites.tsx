@@ -17,7 +17,7 @@ const FavoritesToIndex = () => {
   ]);
   return (
     <>
-      { showFavorites && <Favorites />}
+      {showFavorites && <Favorites />}
       <Index />
     </>
   );

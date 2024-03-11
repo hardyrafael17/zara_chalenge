@@ -12,7 +12,7 @@ module.exports = {
         sourceMap: true,
         postcssOptions: {
           map: true,
-          absolute: true
+          absolute: true,
         },
       },
     },

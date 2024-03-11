@@ -7,17 +7,16 @@ import { navigate } from 'gatsby';
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
   if (!result) {
-    return (<></>);
+    navigate('/');
   }
-
   const heroProviderValue = useContext(HeroContext);
   return (
     <div>
       {result ? (
-        <div >
+        <div>
           <div className={styles.flexContainer}>
             <div className={styles.imageDescriptionContainer}>
-              <div className={styles.imageContainer}>
+              <div className={styles.imageContainerCharacter}>
                 <div className={styles.imageFlexItem}>
                   <img
                     className={styles.heroCardImage}
@@ -29,15 +28,19 @@ export const CharacterDetails = () => {
                 </div>
               </div>
               <div className={styles.descriptionContainer}>
-                <div className={styles.titleContainer}>
+                <div className={styles.titleContainerCharacter}>
                   <h1 className={styles.mainTitle}>{result.name}</h1>
                 </div>
-                <p className={styles.mainDescription}>{result.description}</p>
+                <p className={styles.mainDescription}>{`${
+                  result.description.length
+                    ? result.description
+                    : 'No description'
+                }`}</p>
               </div>
             </div>
             <div className={styles.bottomRightTriangle}></div>
           </div>
-          <div >
+          <div>
             <h2 className={styles.h2Title}>
               {heroProviderValue.currentHeroComics.length ? 'Comics' : ''}
             </h2>

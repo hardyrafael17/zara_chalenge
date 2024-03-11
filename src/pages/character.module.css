@@ -12,14 +12,35 @@
   background-color: black;
   position: relative;
   color: white;
-  max-width: 960px;
+}
+@media (max-width: 960px) {
+  .imageDescriptionContainer {
+    width: 100%;
+  }
+}
+@media (min-width: 960px) {
+  .imageDescriptionContainer {
+    width: 960px;
+  }
+  .titleContainerCharacter {
+    margin: 96px 48px 24px 48px;
+    padding: 0;
+  }
+}
+@media (max-width: 960px) {
+  .titleContainerCharacter {
+    margin: 80px 48px 24px 48px;
+    padding: 0;
+  }
 }
 
 .favoriteBadge {
   width: 24px;
   height: 21px;
 }
-.titleContainer {
+.titleContainerCharacter {
+  height: 38px;
+  padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -29,15 +50,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-@media (max-width: 786px) {
-  .imageDescriptionContainer {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: center;
-    max-width: 393px;
-  }
 }
 
 .imageFlexItem {
@@ -51,65 +63,9 @@
 }
 .descriptionContainer {
   overflow: hidden;
-  height: 76px;
   height: 210px;
   min-height: 210px;
   position: relative;
-  padding: 96px 0px 48px 48px;
-}
-
-@media (max-width: 786px) {
-  .flexContainer {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-  }
-  .imageContainer {
-    width: 393px;
-    display: flex;
-    justify-content: center;
-  }
-  .descriptionContainer {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 76px;
-    width: 390px;
-    margin-right: 16px;
-  }
-}
-@media (max-width: 393px) {
-  .descriptionContainer {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .mainImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    position: absolute;
-  }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    position: absolute;
-  }
-  .imageFlexItem {
-    width: 100%;
-    text-overflow: ellipsis;
-    position: relative;
-    justify-content: center;
-    display: flex;
-  }
-  .imageContainer {
-    width: auto;
-    display: flex;
-    justify-content: center;
-  }
 }
 
 ul {
@@ -126,13 +82,6 @@ ul {
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-}
-@media (max-width: 786px) {
-  ul,
-  h2Title {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 }
 
 li {
@@ -174,6 +123,11 @@ img {
 }
 
 .mainDescription {
+  height: 100%;
+  margin-top: 30px;
+  margin-right: 48px;
+  margin-left: 48px;
+  margin-bottom: 24px;
   height: 70px;
   font-size: 16px;
   font-weight: 400;
@@ -204,9 +158,47 @@ img {
 }
 
 @media (max-width: 786px) {
+  ul,
+  h2Title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .imageDescriptionContainer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .flexContainer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+  }
+  .imageContainerCharacter {
+    width: 393px;
+    display: flex;
+    justify-content: center;
+  }
+  .descriptionContainer {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 210px;
+  }
+  ul,
+  h2Title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   .h2Title {
     margin-left: 48px;
     margin-right: 48px;
+  }
+  .titleContainerCharacter {
+    margin: 80px 48px 24px 48px;
+    padding: 0;
   }
 }
 .comicImag {
@@ -237,5 +229,43 @@ img {
   object-fit: cover;
   object-position: center;
   position: absolute;
-  border-bottom: 5.38px solid #ec1d24;
+}
+
+@media (max-width: 400px) {
+  .descriptionContainer {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+  }
+  .imageFlexItem {
+    width: 100%;
+    text-overflow: ellipsis;
+    position: relative;
+    justify-content: center;
+    display: flex;
+  }
+  .imageContainerCharacter {
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .titleContainerCharacter {
+    margin: 24px 16px 24px 16px;
+    padding: 0;
+  }
 }
