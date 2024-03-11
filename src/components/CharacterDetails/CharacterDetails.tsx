@@ -5,7 +5,6 @@ import { navigate } from 'gatsby';
 
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
-  const isFavorite = useContext(HeroContext).favoriteHeroes.includes(result);
   if (!result) {
     navigate('/');
   }
