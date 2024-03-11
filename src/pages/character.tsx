@@ -8,6 +8,7 @@ export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
   if (!result) {
     navigate('/');
+    return (<></>);
   }
 
   const heroProviderValue = useContext(HeroContext);
