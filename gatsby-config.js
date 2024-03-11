@@ -1,6 +1,3 @@
-const { languages, defaultLanguage } = require('./src/languages');
-
-
 module.exports = {
   siteMetadata: {
     title: `Molino Navarenas`,
@@ -23,13 +20,6 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: 'locale',
-        path: './src/locales/',
-      },
-    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -55,25 +45,9 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-react-i18next',
-      options: {
-        languages,
-        defaultLanguage,
-        siteUrl: 'http://localhost:8000',
-        i18nextOptions: {
-          fallbackLng: defaultLanguage,
-          supportedLngs: languages,
-          defaultNS: 'common',
-          interpolation: {
-            escapeValue: false, // not needed for react as it escapes by default
-          },
-        },
-      },
-    },
-    {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        short_name: `Molino Navarenas`,
+        short_name: `Zara Chalenge`,
         start_url: `/`,
         display: `standalone`,
         icon: `src/images/favicon.png`,

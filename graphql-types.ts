@@ -64,10 +64,6 @@ export type File = Node & {
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
   childImageSharp?: Maybe<ImageSharp>;
-  /** Returns all children nodes filtered by type Locale */
-  childrenLocale?: Maybe<Array<Maybe<Locale>>>;
-  /** Returns the first child node of type Locale or null if there are no children of given type on this node */
-  childLocale?: Maybe<Locale>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -605,17 +601,6 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
-export type Locale = Node & {
-  id: Scalars['ID'];
-  parent?: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  language?: Maybe<Scalars['String']>;
-  ns?: Maybe<Scalars['String']>;
-  data?: Maybe<Scalars['String']>;
-  fileAbsolutePath?: Maybe<Scalars['String']>;
-};
-
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -633,8 +618,6 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  locale?: Maybe<Locale>;
-  allLocale: LocaleConnection;
 };
 
 
@@ -675,8 +658,6 @@ export type QueryFileArgs = {
   publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
-  childrenLocale?: InputMaybe<LocaleFilterListInput>;
-  childLocale?: InputMaybe<LocaleFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -872,26 +853,6 @@ export type QueryAllImageSharpArgs = {
   limit?: InputMaybe<Scalars['Int']>;
 };
 
-
-export type QueryLocaleArgs = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  language?: InputMaybe<StringQueryOperatorInput>;
-  ns?: InputMaybe<StringQueryOperatorInput>;
-  data?: InputMaybe<StringQueryOperatorInput>;
-  fileAbsolutePath?: InputMaybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllLocaleArgs = {
-  filter?: InputMaybe<LocaleFilterInput>;
-  sort?: InputMaybe<Array<InputMaybe<LocaleSortInput>>>;
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-};
-
 export type StringQueryOperatorInput = {
   eq?: InputMaybe<Scalars['String']>;
   ne?: InputMaybe<Scalars['String']>;
@@ -1030,21 +991,6 @@ export type BooleanQueryOperatorInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
 };
 
-export type LocaleFilterListInput = {
-  elemMatch?: InputMaybe<LocaleFilterInput>;
-};
-
-export type LocaleFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  language?: InputMaybe<StringQueryOperatorInput>;
-  ns?: InputMaybe<StringQueryOperatorInput>;
-  data?: InputMaybe<StringQueryOperatorInput>;
-  fileAbsolutePath?: InputMaybe<StringQueryOperatorInput>;
-};
-
 export type FileConnection = {
   totalCount: Scalars['Int'];
   edges: Array<FileEdge>;
@@ -1137,8 +1083,6 @@ export type FileFieldSelector = {
   publicURL?: InputMaybe<FieldSelectorEnum>;
   childrenImageSharp?: InputMaybe<ImageSharpFieldSelector>;
   childImageSharp?: InputMaybe<ImageSharpFieldSelector>;
-  childrenLocale?: InputMaybe<LocaleFieldSelector>;
-  childLocale?: InputMaybe<LocaleFieldSelector>;
   id?: InputMaybe<FieldSelectorEnum>;
   parent?: InputMaybe<NodeFieldSelector>;
   children?: InputMaybe<NodeFieldSelector>;
@@ -1222,17 +1166,6 @@ export type InternalFieldSelector = {
   contentFilePath?: InputMaybe<FieldSelectorEnum>;
 };
 
-export type LocaleFieldSelector = {
-  id?: InputMaybe<FieldSelectorEnum>;
-  parent?: InputMaybe<NodeFieldSelector>;
-  children?: InputMaybe<NodeFieldSelector>;
-  internal?: InputMaybe<InternalFieldSelector>;
-  language?: InputMaybe<FieldSelectorEnum>;
-  ns?: InputMaybe<FieldSelectorEnum>;
-  data?: InputMaybe<FieldSelectorEnum>;
-  fileAbsolutePath?: InputMaybe<FieldSelectorEnum>;
-};
-
 export type FileGroupConnection = {
   totalCount: Scalars['Int'];
   edges: Array<FileEdge>;
@@ -1311,8 +1244,6 @@ export type FileFilterInput = {
   publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
-  childrenLocale?: InputMaybe<LocaleFilterListInput>;
-  childLocale?: InputMaybe<LocaleFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1356,8 +1287,6 @@ export type FileSortInput = {
   publicURL?: InputMaybe<SortOrderEnum>;
   childrenImageSharp?: InputMaybe<ImageSharpSortInput>;
   childImageSharp?: InputMaybe<ImageSharpSortInput>;
-  childrenLocale?: InputMaybe<LocaleSortInput>;
-  childLocale?: InputMaybe<LocaleSortInput>;
   id?: InputMaybe<SortOrderEnum>;
   parent?: InputMaybe<NodeSortInput>;
   children?: InputMaybe<NodeSortInput>;
@@ -1440,17 +1369,6 @@ export type InternalSortInput = {
   owner?: InputMaybe<SortOrderEnum>;
   type?: InputMaybe<SortOrderEnum>;
   contentFilePath?: InputMaybe<SortOrderEnum>;
-};
-
-export type LocaleSortInput = {
-  id?: InputMaybe<SortOrderEnum>;
-  parent?: InputMaybe<NodeSortInput>;
-  children?: InputMaybe<NodeSortInput>;
-  internal?: InputMaybe<InternalSortInput>;
-  language?: InputMaybe<SortOrderEnum>;
-  ns?: InputMaybe<SortOrderEnum>;
-  data?: InputMaybe<SortOrderEnum>;
-  fileAbsolutePath?: InputMaybe<SortOrderEnum>;
 };
 
 export type DirectoryConnection = {
@@ -2402,99 +2320,6 @@ export type ImageSharpGroupConnectionGroupArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   field: ImageSharpFieldSelector;
 };
-
-export type LocaleConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LocaleEdge>;
-  nodes: Array<Locale>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<LocaleGroupConnection>;
-};
-
-
-export type LocaleConnectionDistinctArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleConnectionMaxArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleConnectionMinArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleConnectionSumArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleConnectionGroupArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  field: LocaleFieldSelector;
-};
-
-export type LocaleEdge = {
-  next?: Maybe<Locale>;
-  node: Locale;
-  previous?: Maybe<Locale>;
-};
-
-export type LocaleGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LocaleEdge>;
-  nodes: Array<Locale>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<LocaleGroupConnection>;
-  field: Scalars['String'];
-  fieldValue?: Maybe<Scalars['String']>;
-};
-
-
-export type LocaleGroupConnectionDistinctArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleGroupConnectionMaxArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleGroupConnectionMinArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleGroupConnectionSumArgs = {
-  field: LocaleFieldSelector;
-};
-
-
-export type LocaleGroupConnectionGroupArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  field: LocaleFieldSelector;
-};
-
-export type Unnamed_1_QueryVariables = Exact<{
-  language: Scalars['String'];
-}>;
-
-
-export type Unnamed_1_Query = { locales: { edges: Array<{ node: { ns?: string | null, data?: string | null, language?: string | null } }> } };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

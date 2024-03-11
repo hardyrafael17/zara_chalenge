@@ -9,7 +9,6 @@ export const CharacterDetails = () => {
   if (!result) {
     navigate('/');
   }
-  console.log(useContext(HeroContext))
 
   const heroProviderValue = useContext(HeroContext);
   return (

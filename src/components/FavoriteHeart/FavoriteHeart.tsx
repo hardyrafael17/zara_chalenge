@@ -16,9 +16,9 @@ const FavoriteHeart = ({
   isHovered: boolean;
   additionalClassname?: string;
 }) => {
-  const outlinedWhiteHeart = '../../assets/img/outlinedWhiteHeart.png';
-  const filledRedHeart = '../../assets/img/redHeart.png';
-  const fullWhiteHeart = '../../assets/img/fullWhite.png';
+  const outlinedWhiteHeart = '/outlinedWhiteHeart.png';
+  const filledRedHeart = '/redHeart.png';
+  const fullWhiteHeart = '/fullWhite.png';
   let showOutlinedWhiteHeart, showFilledRedHeart, showFullWhiteHeart;
   if (isFavorite && isHovered) showFullWhiteHeart = true;
   else if (isFavorite && !isHovered) showFilledRedHeart = true;
@@ -26,7 +26,7 @@ const FavoriteHeart = ({
 
   return (
     <div className={styles.favoritesContainer}>
-      <StaticImage
+      <img
         className={classNames([
           showFilledRedHeart ? styles.favoriteBadge : styles.hidden,
           styles.image,
@@ -34,7 +34,7 @@ const FavoriteHeart = ({
         src={filledRedHeart}
         alt="no favorite heart indicator"
       />
-      <StaticImage
+      <img
         className={classNames([
           showOutlinedWhiteHeart ? styles.favoriteBadge : styles.hidden,
           styles.image,
@@ -42,7 +42,7 @@ const FavoriteHeart = ({
         src={outlinedWhiteHeart}
         alt="no favorite heart indicator"
       />
-      <StaticImage
+      <img
         className={classNames([
           showFullWhiteHeart ? styles.favoriteBadge : styles.hidden,
           styles.image,
