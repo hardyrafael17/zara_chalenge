@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* background color black */
+
 .header {
   background-color: black;
   height: 84px;
@@ -58,3 +59,4 @@
   height: 21.68px;
   width: 24px;
 }
+

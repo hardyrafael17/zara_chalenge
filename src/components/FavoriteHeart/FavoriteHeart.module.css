@@ -14,6 +14,12 @@
 }
 
 .image {
+  margin-top: 8px;
   height: 10.84px;
   width: 12px;
+}
+
+.favoriteBadge {
+  width: 24px;
+  height: 21px;
 }

@@ -12,9 +12,9 @@ export const CharacterDetails = () => {
 
   const heroProviderValue = useContext(HeroContext);
   return (
-    <div className={styles.mainContainer}>
+    <div>
       {result ? (
-        <div className={styles.detailsContainer}>
+        <div >
           <div className={styles.flexContainer}>
             <div className={styles.imageDescriptionContainer}>
               <div className={styles.imageContainer}>
@@ -37,7 +37,7 @@ export const CharacterDetails = () => {
             </div>
             <div className={styles.bottomRightTriangle}></div>
           </div>
-          <div className={styles.comicsContainer}>
+          <div >
             <h2 className={styles.h2Title}>
               {heroProviderValue.currentHeroComics.length ? 'Comics' : ''}
             </h2>
@@ -48,7 +48,7 @@ export const CharacterDetails = () => {
                     <li key={index} className={styles.comic}>
                       <div className={styles.comicImag}>
                         <img
-                          className={styles.mainImge}
+                          className={styles.mainImage}
                           alt="Comic Image"
                           src={
                             comic.thumbnail.path +
@@ -57,7 +57,7 @@ export const CharacterDetails = () => {
                           }
                         />
                       </div>
-                      <div className={styles.comicDescriptionContainer}>
+                      <div>
                         <p className={styles.comicDescriptionText}>
                           {comic.description}
                         </p>

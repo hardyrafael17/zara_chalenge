@@ -28,24 +28,21 @@ const FavoriteHeart = ({
     <div className={styles.favoritesContainer}>
       <img
         className={classNames([
-          showFilledRedHeart ? styles.favoriteBadge : styles.hidden,
-          styles.image,
+          showFilledRedHeart ? styles.image : styles.hidden,
         ])}
         src={filledRedHeart}
         alt="no favorite heart indicator"
       />
       <img
         className={classNames([
-          showOutlinedWhiteHeart ? styles.favoriteBadge : styles.hidden,
-          styles.image,
+          showOutlinedWhiteHeart ? styles.image : styles.hidden,
         ])}
         src={outlinedWhiteHeart}
         alt="no favorite heart indicator"
       />
       <img
         className={classNames([
-          showFullWhiteHeart ? styles.favoriteBadge : styles.hidden,
-          styles.image,
+          showFullWhiteHeart ? styles.image : styles.hidden,
         ])}
         src={fullWhiteHeart}
         alt="no favorite heart indicator"

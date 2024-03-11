@@ -56,7 +56,7 @@ export const Header = () => {
           src={filledRedHeart}
           alt="favorites heart indicator"
         />
-        <div className={classNames([styles.counter, styles.navIcon])}>
+        <div className={classNames([styles.counter])}>
           {favoriteCount}
         </div>
       </div>
