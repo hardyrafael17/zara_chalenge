@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import axios from 'axios';
-import { useLocation } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 
 export const defaultState = {
   allHeroes: [] as string[],
@@ -74,6 +74,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
     // handleGetHeroComics(hero);
+    navigate('/');
   };
 
   const handleGetHeroComics = (hero: any) => {
