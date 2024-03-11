@@ -42,4 +42,60 @@ If you'd like to contribute to the project, follow these steps:
 3. Make your changes and submit a pull request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+
+# Marvel Characters App
+
+## Description
+
+This project is a web application that allows users to browse Marvel characters and view their details.
+
+## Views
+
+### View 1 - Characters List
+
+- [x] Develop an interface based on the design provided in Figma.
+- [x] Implement character search functionality using API filtering.
+- [x] Initially display the first 50 characters.
+- [ ] Include:
+  - [x] Logo icon.
+  - [x] Icon showing the number of favorite characters.
+  - [x] Search bar for searching characters by name.
+  - [x] Real-time results counter.
+  - [x] List of character results with image, name, and option to add to favorites.
+- [x] Clicking on a result should redirect to the character detail view.
+- [x] Clicking on the favorite icon should change its color, update the favorites counter, and allow users to remove characters from favorites. Favorite information must persist across views.
+- [x] Implement favorites filter: clicking on the favorites icon should display only favorite characters. Clicking on the Marvel logo should return to the main characters list.
+
+### View 2 - Character Details
+
+- [x] Develop an interface based on the design provided in Figma.
+- [ ] Include:
+  - [x] Logo icon that redirects to the main characters list.
+  - [x] Icon showing the number of favorite characters that redirects to the main characters list.
+  - [x] Character image, title, description, and option to add to favorites.
+  - [ ] List of the character's comics sorted by release date, displaying only the first 20 comics.
+
+## Stack
+
+- [x] React >= 17
+- [x] Node >= 18
+- [x] CSS, SASS, or StyledComponents
+- [x] Avoid using component libraries such as antd, reactstrap, materialui, etc. Components must be created from scratch.
+- [x] Use React Context API for state management.
+
+## Requirements
+
+- [x] Implement testing.
+- [x] Ensure responsiveness.
+- [x] Ensure accessibility.
+- [x] Use Linters and Formatters.
+- [x] Keep the browser console free of errors and warnings.
+- [x] Include a README explaining how to run the application, architecture, structure, and relevant project information.
+
+### Optional
+
+- [x] Deploy the application.
+- [x] Use SSR (Next.js).
+- [x] Use CSS variables.
