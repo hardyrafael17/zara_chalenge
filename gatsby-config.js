@@ -1,11 +1,13 @@
 module.exports = {
+  flags: {
+    DEV_SSR: true,
+  },
   siteMetadata: {
     title: `Molino Navarenas`,
     siteUrl: `https://www.molinonavarenas.com`,
     defaultLanguage: `es`,
   },
   plugins: [
-    `gatsby-plugin-graphql-codegen`,
     {
       resolve: 'gatsby-plugin-postcss',
       options: {

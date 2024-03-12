@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useEffect } from 'react';
 import * as styles from './Header.module.css';
 import { classNames } from 'primereact/utils';
 import { useContext } from 'react';
@@ -7,7 +7,8 @@ import { useLocation, navigate } from '@reach/router';
 
 export const Header = () => {
   const heroContextValue = useContext(HeroContext);
-  let favoriteCount = 0;
+
+  let favoriteCount = heroContextValue.favoriteHeroes.length;
   let isFavorite = false;
 
   const marvelLogoSrc = '/headerLogo.png';
@@ -17,13 +18,18 @@ export const Header = () => {
   const setShowFavoritesSearch = heroContextValue.setShowFavoritesSearch;
   const location = useLocation().pathname;
 
+  useEffect(() => {
+    if (location === '/favorites')
+      heroContextValue.setShowFavoritesSearch(true);
+  }, [location]);
+
   return (
     <header className={styles.headerHeader}>
       <div>
         <img
           onClick={() => {
             setSearchInput('');
-            setShowFavoritesSearch(false)
+            setShowFavoritesSearch(false);
             navigate('/');
           }}
           className={styles.logo}
@@ -35,7 +41,8 @@ export const Header = () => {
       <div
         className={styles.favoriteBadgeAndCounterCointainerHeader}
         onClick={() => {
-          if (location !== '/favorites/') {
+          if (location !== '/favorites' && favoriteCount) {
+            console.log('location', location);
             navigate('/favorites');
           }
         }}
@@ -56,7 +63,9 @@ export const Header = () => {
             alt="favorites heart indicator"
           />
         </div>
-        <div className={classNames([styles.counterHeader])}>{favoriteCount}</div>
+        <div className={classNames([styles.counterHeader])}>
+          {favoriteCount}
+        </div>
       </div>
     </header>
   );

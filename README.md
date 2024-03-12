@@ -5,12 +5,17 @@
 ## Description
 This project is a concept project of marvel heroes using the marvel API, following design from figma.
 
+# 🚀 Deployed at 🚀 [Link Text](https://marvel-heroes-zara.netlify.app)
+
 ### Technologies Used
+- Serverless Netlify Functions
 - Gatsby v5.13.1
 - TypeScript v5.1.6
 - React v18.2.0
 - Jest v29.7.0
 - Axios v1.6.7
+- Node v18.2.0
+- Other 
 
 ## Features
 - View heroes

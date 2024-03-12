@@ -57,7 +57,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const [showCharacterDetails, setShowCharacterDetails] = useState(false);
   const [currentFavoriteHero, setCurrentFavoriteHero] = useState<any>(false);
   const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
-  const baseUrl = process.env.GATSBY_API_BASE_URL;
+  const baseUrl = process.env.GATSBY_MARVEL_API_URL;
 
   const addFavorite = (hero: any) => {
     setFavoriteHeroes([...favoriteHeroes, hero]);
@@ -96,9 +96,8 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
                   const data = response.data.data.data.results;
                   setCurrentHeroComics((prevState) => [...prevState, ...data]);
                 } else {
-                  throw new Error(
-                    // `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
-                  );
+                  throw new Error();
+                  // `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
                 }
               })
               .catch((error) => {
@@ -110,6 +109,8 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const searchForHeroes = (searchParam: string) => {
+    console.log(baseUrl, 'searching');
+
     if (baseUrl)
       axios
         .get(baseUrl, {
@@ -120,24 +121,28 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           },
         })
         .then((response) => {
+          console.log(baseUrl, 'searching');
           if (response.status === 200 && response.statusText === 'OK') {
             if (response.data.data.code !== 200) {
               throw new Error(
                 `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
               );
             }
+            console.log(baseUrl, 'searching');
             const data = response.data.data.data.results;
             if (data.length > 0) {
               setSearchResults([...data]);
               setAllHeroes([...data]);
             }
           } else {
+            console.log(baseUrl, 'searching');
             throw new Error(
               `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
             );
           }
         })
         .catch((error) => {
+            console.log(baseUrl, 'searching');
           console.log(error);
         });
   };
@@ -150,6 +155,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const handleInputChange = (inputValue: string, location: string) => {
+    console.log(inputValue, location, 'inputValue, location')
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
@@ -169,8 +175,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
       );
     }
   };
-
-
 
   useEffect(() => {
     if (showFavoritesSearch) {
