@@ -5,8 +5,8 @@
 ## Description
 This project is a concept project of marvel heroes using the marvel API, following design from figma.
 
-# 🚀 Deployed at 🚀 [Link Text](https://marvel-heroes-zara.netlify.app)
-#### Since is likly you won't be able to use this project as is because you woud need to set up enviroment variables,
+## 🚀 Deployed at 🚀 [marvel-heroes-zara.netlify.app](https://marvel-heroes-zara.netlify.app)
+#### Since is likely you won't be able to use this project as is for local development because you woud need to set up enviroment variables,
 you can check the live version of the webapp in the link above
 
 ### Technologies Used
