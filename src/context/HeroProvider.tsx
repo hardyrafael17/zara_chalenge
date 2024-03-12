@@ -109,19 +109,18 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const searchForHeroes = (searchParam: string) => {
-    console.log(baseUrl, 'searching');
-
+    console.log(searchParam, baseUrl);
     if (baseUrl)
       axios
         .get(baseUrl, {
           params: {
-            nameStartsWith: 'spider',
+            nameStartsWith: searchParam,
             limit: 50,
             endPoint: 'characters',
           },
         })
         .then((response) => {
-          console.log(baseUrl, 'searching');
+        console.log(response, "not treated")
           if (response.status === 200 && response.statusText === 'OK') {
             if (response.data.data.code !== 200) {
               throw new Error(
@@ -142,7 +141,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           }
         })
         .catch((error) => {
-            console.log(baseUrl, 'searching');
+          console.log(error, "error");
           console.log(error);
         });
   };
@@ -155,7 +154,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const handleInputChange = (inputValue: string, location: string) => {
-    console.log(inputValue, location, 'inputValue, location')
+    console.log(inputValue, location, 'inputValue, location');
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
