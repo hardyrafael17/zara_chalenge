@@ -118,7 +118,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const handleInputChange = (inputValue: string, location: string) => {
-    console.log(inputValue, location, 'inputValue, location');
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
