@@ -70,53 +70,11 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
-    handleGetHeroComics(hero);
   };
 
-  const handleGetHeroComics = async (hero: any) => {
-    setCurrentHeroComics([]);
-    if (hero.comics.available > 0 && baseUrl) {
-      hero.comics.items.forEach(
-        async (comic: { resourceURI: any }, index: number) => {
-          if (index < 20)
-            axios
-              .get(baseUrl, {
-                params: {
-                  endPoint: 'comic',
-                  comicUrl: comic.resourceURI,
-                },
-              })
-              .then((response) => {
-                if (response.status === 200 && response.statusText === 'OK') {
-                  if (response.data.data.code !== 200) {
-                    throw new Error(
-                      `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
-                    );
-                  }
-                  const data = response.data.data.data.results;
-                  setCurrentHeroComics((prevState) => [...prevState, ...data]);
-                } else {
-                  throw new Error();
-                  // `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-        }
-      );
-    }
-  };
 
   const searchForHeroes = (searchParam: string) => {
-    console.log(searchParam, baseUrl);
     if (baseUrl) {
-      // const url2 = new URL(baseUrl);
-      // url2.search = new URLSearchParams({
-      //   nameStartsWith: searchParam,
-      //   limit: '50',
-      //   endPoint: 'characters',
-      // });
       const url = new URL(baseUrl);
       url.search = new URLSearchParams({
         nameStartsWith: searchParam,
@@ -150,41 +108,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           console.log(error);
         });
     }
-    //   if (baseUrl)
-    //     axios
-    //       .get(baseUrl, {
-    //         params: {
-    //           nameStartsWith: searchParam,
-    //           limit: 50,
-    //           endPoint: 'characters',
-    //         },
-    //       })
-    //       .then((response) => {
-    //       console.log(response, "not treated")
-    //         if (response.status === 200 && response.statusText === 'OK') {
-    //           if (response.data.data.code !== 200) {
-    //             throw new Error(
-    //               `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
-    //             );
-    //           }
-    //           console.log(baseUrl, 'searching');
-    //           const data = response.data.data.data.results;
-    //           if (data.length > 0) {
-    //             setSearchResults([...data]);
-    //             setAllHeroes([...data]);
-    //           }
-    //         } else {
-    //           console.log(baseUrl, 'searching');
-    //           throw new Error(
-    //             `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
-    //           );
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         console.log(error, "error");
-    //         console.log(error);
-    //       });
-  };
 
   const searchForFavoriteHeroes = (searchParam: string) => {
     const data = favoriteHeroes.filter((hero) => {
@@ -194,7 +117,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const handleInputChange = (inputValue: string, location: string) => {
-    console.log(inputValue, location, 'inputValue, location');
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }

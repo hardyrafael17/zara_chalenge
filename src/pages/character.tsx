@@ -1,15 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as styles from './character.module.css';
-// import HeroContext from '../../context/HeroProvider';
-import HeroContext from '../context/HeroProvider';
-import { navigate } from 'gatsby';
+import axios from 'axios';
+import { HeroContext } from '../context/HeroProvider';
 
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
-  // if (!result) {
-  //   navigate('/');
-  // }
-  const heroProviderValue = useContext(HeroContext);
+  const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
+  const baseUrl = process.env.GATSBY_MARVEL_API_URL;
+
+  const handleGetHeroComics = async (hero: any) => {
+    if (!result) return;
+    setCurrentHeroComics([]);
+    if (hero.comics.available > 0 && baseUrl) {
+      hero.comics.items.forEach(
+        async (comic: { resourceURI: any }, index: number) => {
+          if (index < 20)
+            axios
+              .get(baseUrl, {
+                params: {
+                  endPoint: 'comic',
+                  comicUrl: comic.resourceURI,
+                },
+              })
+              .then((response) => {
+                if (response.status === 200 && response.statusText === 'OK') {
+                  if (response.data.data.code !== 200) {
+                    throw new Error(
+                      `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
+                    );
+                  }
+                  const data = response.data.data.data.results;
+                  setCurrentHeroComics((prevState) => [...prevState, ...data]);
+                } else {
+                  throw new Error();
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+      );
+    }
+  };
+  useEffect(() => {
+    handleGetHeroComics(result);
+  }, []);
   return (
     <div>
       {result ? (
@@ -42,36 +77,32 @@ export const CharacterDetails = () => {
           </div>
           <div>
             <h2 className={styles.h2Title}>
-              {heroProviderValue.currentHeroComics.length ? 'Comics' : ''}
+              {currentHeroComics.length ? 'Comics' : 'No Comics Available'}
             </h2>
             <ul>
-              {heroProviderValue.currentHeroComics.map(
-                (comic: any, index: number) => {
-                  return (
-                    <li key={index} className={styles.comic}>
-                      <div className={styles.comicImag}>
-                        <img
-                          className={styles.mainImage}
-                          alt="Comic Image"
-                          src={
-                            comic.thumbnail.path +
-                            '.' +
-                            comic.thumbnail.extension
-                          }
-                        />
-                      </div>
-                      <div>
-                        <p className={styles.comicDescriptionText}>
-                          {comic.description}
-                        </p>
-                        <p className={styles.comicDescriptionYear}>
-                          {new Date(comic.dates[0].date).getFullYear()}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                }
-              )}
+              {currentHeroComics.map((comic: any, index: number) => {
+                return (
+                  <li key={index} className={styles.comic}>
+                    <div className={styles.comicImag}>
+                      <img
+                        className={styles.mainImage}
+                        alt="Comic Image"
+                        src={
+                          comic.thumbnail.path + '.' + comic.thumbnail.extension
+                        }
+                      />
+                    </div>
+                    <div>
+                      <p className={styles.comicDescriptionText}>
+                        {comic.description}
+                      </p>
+                      <p className={styles.comicDescriptionYear}>
+                        {new Date(comic.dates[0].date).getFullYear()}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
