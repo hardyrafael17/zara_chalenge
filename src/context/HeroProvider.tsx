@@ -110,40 +110,80 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const searchForHeroes = (searchParam: string) => {
     console.log(searchParam, baseUrl);
-    if (baseUrl)
-      axios
-        .get(baseUrl, {
-          params: {
-            nameStartsWith: searchParam,
-            limit: 50,
-            endPoint: 'characters',
-          },
-        })
+    if (baseUrl) {
+      // const url2 = new URL(baseUrl);
+      // url2.search = new URLSearchParams({
+      //   nameStartsWith: searchParam,
+      //   limit: '50',
+      //   endPoint: 'characters',
+      // });
+      const url = new URL(baseUrl);
+      url.search = new URLSearchParams({
+        nameStartsWith: searchParam,
+        limit: '50',
+        endPoint: 'characters',
+      });
+      url.toString();
+
+      fetch(url.toString())
         .then((response) => {
-        console.log(response, "not treated")
-          if (response.status === 200 && response.statusText === 'OK') {
-            if (response.data.data.code !== 200) {
-              throw new Error(
-                `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
-              );
-            }
-            console.log(baseUrl, 'searching');
-            const data = response.data.data.data.results;
-            if (data.length > 0) {
-              setSearchResults([...data]);
-              setAllHeroes([...data]);
-            }
-          } else {
-            console.log(baseUrl, 'searching');
+          if (!response.ok) {
             throw new Error(
               `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
             );
           }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.data.code !== 200) {
+            throw new Error(
+              `Error with the request, status: ${data.data.code}, statusText: ${data.data.status}`
+            );
+          }
+          const results = data.data.data.results;
+          if (results.length > 0) {
+            setSearchResults([...results]);
+            setAllHeroes([...results]);
+          }
         })
         .catch((error) => {
-          console.log(error, "error");
           console.log(error);
         });
+    }
+    //   if (baseUrl)
+    //     axios
+    //       .get(baseUrl, {
+    //         params: {
+    //           nameStartsWith: searchParam,
+    //           limit: 50,
+    //           endPoint: 'characters',
+    //         },
+    //       })
+    //       .then((response) => {
+    //       console.log(response, "not treated")
+    //         if (response.status === 200 && response.statusText === 'OK') {
+    //           if (response.data.data.code !== 200) {
+    //             throw new Error(
+    //               `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
+    //             );
+    //           }
+    //           console.log(baseUrl, 'searching');
+    //           const data = response.data.data.data.results;
+    //           if (data.length > 0) {
+    //             setSearchResults([...data]);
+    //             setAllHeroes([...data]);
+    //           }
+    //         } else {
+    //           console.log(baseUrl, 'searching');
+    //           throw new Error(
+    //             `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
+    //           );
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log(error, "error");
+    //         console.log(error);
+    //       });
   };
 
   const searchForFavoriteHeroes = (searchParam: string) => {

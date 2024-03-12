@@ -55,6 +55,7 @@ export default async (req: Request, context: Context) => {
       `${API_ENDPOINT}?${urlSearchParams}&${queryParams}`
     );
     const data = await response.json();
+    console.log(data)
     return Response.json({ data });
   } catch (error) {
     console.log(error);
