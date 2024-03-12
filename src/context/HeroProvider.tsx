@@ -6,7 +6,6 @@ import React, {
   SetStateAction,
   useEffect,
 } from 'react';
-import axios from 'axios';
 
 export const defaultState = {
   allHeroes: [] as string[],
@@ -70,6 +69,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
+    // handleGetHeroComics(hero);
   };
 
 
@@ -108,6 +108,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
           console.log(error);
         });
     }
+  };
 
   const searchForFavoriteHeroes = (searchParam: string) => {
     const data = favoriteHeroes.filter((hero) => {
@@ -117,6 +118,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   const handleInputChange = (inputValue: string, location: string) => {
+    console.log(inputValue, location, 'inputValue, location');
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
