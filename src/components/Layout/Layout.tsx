@@ -11,7 +11,6 @@ import { HeroProvider } from '../../context/HeroProvider';
 
 const Layout = ({
   children,
-  disablePaddingBottom = false,
 }: {
   children: React.ReactNode;
   disablePaddingBottom?: boolean;

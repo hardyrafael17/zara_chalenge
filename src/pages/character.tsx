@@ -6,9 +6,9 @@ import { navigate } from 'gatsby';
 
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
-  if (!result) {
-    navigate('/');
-  }
+  // if (!result) {
+  //   navigate('/');
+  // }
   const heroProviderValue = useContext(HeroContext);
   return (
     <div>

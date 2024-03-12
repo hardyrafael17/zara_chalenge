@@ -1,34 +1,29 @@
-import React, { useState, useEffect, createRef, useRef } from 'react';
+import React  from 'react';
 import * as styles from './Header.module.css';
-import { StaticImage } from 'gatsby-plugin-image';
 import { classNames } from 'primereact/utils';
 import { useContext } from 'react';
 import { HeroContext } from '../../context/HeroProvider';
-import { navigate } from 'gatsby';
-import { useLocation } from '@reach/router';
+import { useLocation, navigate } from '@reach/router';
 
 export const Header = () => {
   const heroContextValue = useContext(HeroContext);
-  const favoriteCount = heroContextValue.favoriteHeroes.length;
-  const isFavorite = favoriteCount > 0;
+  let favoriteCount = 0;
+  let isFavorite = false;
 
   const marvelLogoSrc = '/headerLogo.png';
   const outlinedWhiteHeart = '/outlinedWhiteHeart.png';
   const filledRedHeart = '/redHeart.png';
-
+  const setSearchInput = heroContextValue.setSearchInput;
+  const setShowFavoritesSearch = heroContextValue.setShowFavoritesSearch;
   const location = useLocation().pathname;
-  useEffect(() => {
-    if (location === '/favorites/')
-      heroContextValue.setShowFavoritesSearch(true);
-  }, [location]);
 
   return (
     <header className={styles.headerHeader}>
       <div>
         <img
           onClick={() => {
-            heroContextValue.setSearchInput('');
-            heroContextValue.setShowFavoritesSearch(false);
+            setSearchInput('');
+            setShowFavoritesSearch(false)
             navigate('/');
           }}
           className={styles.logo}

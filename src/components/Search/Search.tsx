@@ -1,11 +1,11 @@
-import React  from 'react';
+import React from 'react';
 import * as styles from './Search.module.css';
 import { useContext } from 'react';
 import { HeroContext } from '../../context/HeroProvider';
 import { useLocation } from '@reach/router';
 
 export const Search = () => {
-  const path = useLocation().pathname
+  const path = useLocation().pathname;
 
   const heroContextValue = useContext(HeroContext);
   const handleChange = (e: any) => {
@@ -14,6 +14,7 @@ export const Search = () => {
   };
 
   const searchIcon = '/searchIcon.png';
+  const searchResultsCount = heroContextValue.searchResults.length;
 
   return (
     <div className={styles.mainContainer}>
@@ -33,9 +34,11 @@ export const Search = () => {
           onChange={(e) => handleChange(e)}
         />
       </div>
-      <div className={styles.results}>{`${heroContextValue.allHeroes.length} ${
-        heroContextValue.allHeroes.length !== 1 ? 'Results' : 'result'
-      }`}</div>
+      <div className={styles.results}>
+        {`${searchResultsCount} ${
+          searchResultsCount !== 1 ? 'Results' : 'Result'
+        }`}
+      </div>
     </div>
   );
 };

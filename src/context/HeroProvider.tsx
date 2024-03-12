@@ -7,8 +7,6 @@ import React, {
   useEffect,
 } from 'react';
 import axios from 'axios';
-import { navigate, useLocation } from '@reach/router';
-import { getParams } from '../axios/getParams';
 
 export const defaultState = {
   allHeroes: [] as string[],
@@ -59,8 +57,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const [showCharacterDetails, setShowCharacterDetails] = useState(false);
   const [currentFavoriteHero, setCurrentFavoriteHero] = useState<any>(false);
   const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-
+  const baseUrl = process.env.GATSBY_API_BASE_URL;
 
   const addFavorite = (hero: any) => {
     setFavoriteHeroes([...favoriteHeroes, hero]);
@@ -73,21 +70,67 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
 
   const handleFavoriteHeroClick = (hero: any) => {
     setCurrentFavoriteHero(hero);
-     handleGetHeroComics(hero);
-    navigate('/');
+    handleGetHeroComics(hero);
   };
 
-  const handleGetHeroComics = (hero: any) => {
-    let i = 0;
-    while (i < hero.comics.available && i < 10) {
+  const handleGetHeroComics = async (hero: any) => {
+    setCurrentHeroComics([]);
+    if (hero.comics.available > 0 && baseUrl) {
+      hero.comics.items.forEach(
+        async (comic: { resourceURI: any }, index: number) => {
+          if (index < 20)
+            axios
+              .get(baseUrl, {
+                params: {
+                  endPoint: 'comic',
+                  comicUrl: comic.resourceURI,
+                },
+              })
+              .then((response) => {
+                if (response.status === 200 && response.statusText === 'OK') {
+                  if (response.data.data.code !== 200) {
+                    throw new Error(
+                      `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
+                    );
+                  }
+                  const data = response.data.data.data.results;
+                  setCurrentHeroComics((prevState) => [...prevState, ...data]);
+                } else {
+                  throw new Error(
+                    // `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
+                  );
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+      );
+    }
+  };
+
+  const searchForHeroes = (searchParam: string) => {
+    if (baseUrl)
       axios
-        .get(
-          `${hero.comics.items[i].resourceURI}?apikey=f3c16bcc557f4d4006b0806b54190952`
-        )
+        .get(baseUrl, {
+          params: {
+            nameStartsWith: 'spider',
+            limit: 50,
+            endPoint: 'characters',
+          },
+        })
         .then((response) => {
           if (response.status === 200 && response.statusText === 'OK') {
-            const data = response.data.data.results;
-            setCurrentHeroComics((prevState) => [...prevState, ...data]);
+            if (response.data.data.code !== 200) {
+              throw new Error(
+                `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`
+              );
+            }
+            const data = response.data.data.data.results;
+            if (data.length > 0) {
+              setSearchResults([...data]);
+              setAllHeroes([...data]);
+            }
           } else {
             throw new Error(
               `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
@@ -97,47 +140,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         .catch((error) => {
           console.log(error);
         });
-      i++;
-    }
-  };
-
-  const searchForHeroes = (searchParam: string) => {
-    // const payload = getParams();
-    axios
-      .get(
-        `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchParam}&limit=50&apikey=f3c16bcc557f4d4006b0806b54190952`,
-        {
-          // params: payload,
-          onDownloadProgress: (progressEvent) => {
-            setLoadingProgress(35);
-            const loaded = progressEvent.loaded;
-            const total = progressEvent.total;
-            let percentage;
-            if (loaded && total) {
-              percentage = Math.floor((loaded * 100) / total);
-            }
-            if (percentage) setLoadingProgress(percentage);
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200 && response.statusText === 'OK') {
-          const data = response.data.data.results;
-          if (data.length > 0) {
-            setSearchResults([...data]);
-            setAllHeroes([...data]);
-            setLoadingProgress(100);
-          }
-        } else {
-          setLoadingProgress(0);
-          throw new Error(
-            `Error with the request, status: ${response.status}, statusText: ${response.statusText}`
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const searchForFavoriteHeroes = (searchParam: string) => {
@@ -168,6 +170,8 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+
+
   useEffect(() => {
     if (showFavoritesSearch) {
       setSearchResults(favoriteHeroes);
@@ -175,20 +179,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
       setSearchResults(allHeroes);
     }
   }, [showFavoritesSearch]);
-
-  const handleRequest = () => {
-    const baseUrl = process.env.GATSBY_MARVEL_API_URL || false;
-    if (baseUrl) {
-      axios
-        .get(baseUrl)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
 
   return (
     <HeroContext.Provider
@@ -210,7 +200,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
         currentHeroComics: currentHeroComics,
       }}
     >
-      {/* <button onClick={() => handleRequest()}>Test Axios</button> */}
       {children}
     </HeroContext.Provider>
   );
