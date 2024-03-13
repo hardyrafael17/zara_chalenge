@@ -7,8 +7,9 @@ import { useLocation } from '@reach/router';
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
   const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
+  const [comicsTitle, setComicsTitle] = useState<string>('');
   const baseUrl = process.env.GATSBY_MARVEL_API_URL;
-  const path = useLocation().pathname
+  const path = useLocation().pathname;
 
   const handleGetHeroComics = async (hero: any) => {
     if (!result) return;
@@ -32,6 +33,9 @@ export const CharacterDetails = () => {
                     );
                   }
                   const data = response.data.data.data.results;
+                  if (comicsTitle === 'Fetching comics...')
+                    setComicsTitle('Comics');
+
                   setCurrentHeroComics((prevState) => [...prevState, ...data]);
                 } else {
                   throw new Error();
@@ -44,11 +48,22 @@ export const CharacterDetails = () => {
       );
     }
   };
+
   useEffect(() => {
-    handleGetHeroComics(result);
+    if (
+      path.includes('character') &&
+      Object.hasOwnProperty.call(result, 'id') &&
+      result.comics.available > 0
+    ) {
+      setComicsTitle('Fetching comics...');
+      handleGetHeroComics(result);
+    } else {
+      setComicsTitle('No comics availabl');
+    }
   }, [path]);
+
   return (
-    <div>
+    <>
       {result ? (
         <div>
           <div className={styles.flexContainer}>
@@ -71,16 +86,14 @@ export const CharacterDetails = () => {
                 <p className={styles.mainDescription}>{`${
                   result.description.length
                     ? result.description
-                    : 'No description'
+                    : 'No description found'
                 }`}</p>
               </div>
             </div>
             <div className={styles.bottomRightTriangle}></div>
           </div>
           <div>
-            <h2 className={styles.h2Title}>
-              {currentHeroComics.length ? 'Comics' : 'No Comics Available'}
-            </h2>
+            <h2 className={styles.h2Title}>{comicsTitle}</h2>
             <ul>
               {currentHeroComics.map((comic: any, index: number) => {
                 return (
@@ -109,9 +122,9 @@ export const CharacterDetails = () => {
           </div>
         </div>
       ) : (
-        <></>
+        <p>Ooops!</p>
       )}
-    </div>
+    </>
   );
 };
 

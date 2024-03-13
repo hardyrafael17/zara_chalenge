@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Index from './index';
-import Favorites from '../components/Favorites';
+import Search from '../components/Search';
+import SearchResults from '../components/SearchResults';
+import FavoritesText from '../components/FavoritesText';
 import HeroContext from '../context/HeroProvider';
 
-const FavoritesToIndex = () => {
+const Favorites = () => {
   const [showFavorites, setShowFavorites] = useState(false);
   const heroProviderValue = React.useContext(HeroContext);
 
@@ -15,12 +16,14 @@ const FavoritesToIndex = () => {
     heroProviderValue.showFavoritesSearch,
     heroProviderValue.currentFavoriteHero,
   ]);
+
   return (
     <>
-      {showFavorites && <Favorites />}
-      <Index />
+      {showFavorites && <FavoritesText />}
+      <Search />
+      <SearchResults />
     </>
   );
 };
 
-export default FavoritesToIndex;
+export default Favorites;

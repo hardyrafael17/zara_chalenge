@@ -16,12 +16,10 @@ const Layout = ({
   disablePaddingBottom?: boolean;
 }) => {
   return (
-    <>
-      <HeroProvider>
-        <Header />
-        <main>{children}</main>
-      </HeroProvider>
-    </>
+    <HeroProvider>
+      <Header />
+      <main>{children}</main>
+    </HeroProvider>
   );
 };
 

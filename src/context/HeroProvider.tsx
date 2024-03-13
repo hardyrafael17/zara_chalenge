@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router';
 import React, {
   ReactNode,
   createContext,
@@ -57,6 +58,7 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   const [currentFavoriteHero, setCurrentFavoriteHero] = useState<any>(false);
   const [currentHeroComics, setCurrentHeroComics] = useState<any[]>([]);
   const baseUrl = process.env.GATSBY_MARVEL_API_URL;
+  const path = useLocation().pathname;
 
   const addFavorite = (hero: any) => {
     setFavoriteHeroes([...favoriteHeroes, hero]);
@@ -71,7 +73,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     setCurrentFavoriteHero(hero);
     // handleGetHeroComics(hero);
   };
-
 
   const searchForHeroes = (searchParam: string) => {
     if (baseUrl) {
@@ -139,12 +140,15 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (showFavoritesSearch) {
+    setSearchInput('');
+    if (path.includes('favorites')) {
+      setShowFavoritesSearch(true);
       setSearchResults(favoriteHeroes);
     } else {
       setSearchResults(allHeroes);
+      setShowFavoritesSearch(false);
     }
-  }, [showFavoritesSearch]);
+  }, [path])
 
   return (
     <HeroContext.Provider

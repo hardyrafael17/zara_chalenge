@@ -1,10 +1,12 @@
 module.exports = {
   flags: {
     DEV_SSR: true,
+    FAST_DEV: true,
+    // PARALLEL_SOURCING: true,
+    // DETECT_NODE_MUTATIONS: true
   },
   siteMetadata: {
-    title: `Molino Navarenas`,
-    siteUrl: `https://www.molinonavarenas.com`,
+    title: `Zara Chalenge`,
     defaultLanguage: `es`,
   },
   plugins: [
@@ -52,7 +54,7 @@ module.exports = {
         short_name: `Zara Chalenge`,
         start_url: `/`,
         display: `standalone`,
-        icon: `src/images/favicon.png`,
+        icon: `./static/favicon.png`
       },
     },
   ],

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import * as styles from './Favorites.module.css';
+import * as styles from './FavoritesText.module.css';
 import { classNames } from 'primereact/utils';
 import HeroContext from '../../context/HeroProvider';
 
-export const Favorites = () => {
+export const FavoritesText = () => {
   const heroProviderValue = useContext(HeroContext);
 
   return (
@@ -22,4 +22,4 @@ export const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default FavoritesText;

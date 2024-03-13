@@ -16,10 +16,10 @@ const Index = () => {
     heroProviderValue.currentFavoriteHero,
   ]);
   return (
-    <div>
+    <>
       <Search />
       <SearchResults />
-    </div>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+
 exports.onCreateWebpackConfig = (helper) => {
   const { stage, actions, getConfig } = helper;
   if (stage === 'develop' || stage === 'build-javascript') {
@@ -8,5 +9,6 @@ exports.onCreateWebpackConfig = (helper) => {
     if (miniCssExtractPlugin) {
       miniCssExtractPlugin.options.ignoreOrder = true;
     }
+    actions.replaceWebpackConfig(config);
   }
 };

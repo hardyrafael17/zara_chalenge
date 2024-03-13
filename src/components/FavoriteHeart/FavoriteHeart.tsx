@@ -25,7 +25,7 @@ const FavoriteHeart = ({
   else showOutlinedWhiteHeart = true;
 
   return (
-    <div className={styles.favoritesContainerFv}>
+    <div>
       <img
         className={classNames([
           showFilledRedHeart ? styles.imageFv: styles.hidden,

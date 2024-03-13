@@ -7,30 +7,36 @@ import { useLocation, navigate } from '@reach/router';
 
 export const Header = () => {
   const heroContextValue = useContext(HeroContext);
-
   let favoriteCount = heroContextValue.favoriteHeroes.length;
-  let isFavorite = false;
+  const isFavorite = favoriteCount > 0;
 
   const marvelLogoSrc = '/headerLogo.png';
   const outlinedWhiteHeart = '/outlinedWhiteHeart.png';
   const filledRedHeart = '/redHeart.png';
-  const setSearchInput = heroContextValue.setSearchInput;
+
   const setShowFavoritesSearch = heroContextValue.setShowFavoritesSearch;
   const location = useLocation().pathname;
 
   useEffect(() => {
-    if (location === '/favorites')
-      heroContextValue.setShowFavoritesSearch(true);
+    if (location.includes('favorites')) {
+      setShowFavoritesSearch(true);
+
+    }
   }, [location]);
+
+  const handleLogoClick = () => {
+    navigate('/');
+  }
 
   return (
     <header className={styles.headerHeader}>
       <div>
         <img
           onClick={() => {
-            setSearchInput('');
-            setShowFavoritesSearch(false);
-            navigate('/');
+          handleLogoClick();
+          // heroContextValue.setSearchInput("hola") 
+          //   // setShowFavoritesSearch(false);
+          //   // navigate('/');
           }}
           className={styles.logo}
           src={marvelLogoSrc}
@@ -41,10 +47,8 @@ export const Header = () => {
       <div
         className={styles.favoriteBadgeAndCounterCointainerHeader}
         onClick={() => {
-          if (location !== '/favorites' && favoriteCount) {
-            console.log('location', location);
-            navigate('/favorites');
-          }
+          setShowFavoritesSearch(true);
+          navigate('/favorites');
         }}
       >
         <div>
