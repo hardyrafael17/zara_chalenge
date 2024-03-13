@@ -8,6 +8,7 @@ module.exports = {
   siteMetadata: {
     title: `Zara Chalenge`,
     defaultLanguage: `es`,
+    siteUrl: `https://marvel-heroes-zara.netlify.app`,
   },
   plugins: [
     {
@@ -54,7 +55,7 @@ module.exports = {
         short_name: `Zara Chalenge`,
         start_url: `/`,
         display: `standalone`,
-        icon: `./static/favicon.png`
+        icon: `./static/favicon.png`,
       },
     },
   ],
