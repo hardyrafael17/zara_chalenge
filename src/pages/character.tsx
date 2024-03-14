@@ -20,10 +20,10 @@ export const CharacterDetails = () => {
           if (index < 20)
             axios
               .get(comic.resourceURI, {
-                // params: {
-                //   endPoint: 'comic',
-                //   comicUrl: comic.resourceURI,
-                // },
+                params: {
+                  endPoint: 'comic',
+                  comicUrl: comic.resourceURI,
+                },
               })
               .then((response) => {
                 if (response.status === 200 && response.statusText === 'OK') {
