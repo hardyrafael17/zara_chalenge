@@ -28,7 +28,7 @@ export const CharacterDetails = () => {
               })
               .then((response) => {
                 console.log(response, 'response 0');
-                if (response.status === 200 && response.statusText === 'OK') {
+                if (response.status === 200) {
                   if (response.data.data.code !== 200) {
                     throw new Error(
                       `Error with the request, status: ${response.data.data.code}, statusText: ${response.data.data.status}`

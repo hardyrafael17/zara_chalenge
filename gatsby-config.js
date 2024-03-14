@@ -1,9 +1,9 @@
 module.exports = {
   flags: {
-    DEV_SSR: true,
+    // DEV_SSR: true,
     FAST_DEV: true,
     // PARALLEL_SOURCING: true,
-    // DETECT_NODE_MUTATIONS: true
+    DETECT_NODE_MUTATIONS: true
   },
   siteMetadata: {
     title: `Zara Chalenge`,
