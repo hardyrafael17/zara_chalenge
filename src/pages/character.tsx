@@ -19,7 +19,7 @@ export const CharacterDetails = () => {
         async (comic: { resourceURI: any }, index: number) => {
           if (index < 20)
             axios
-              .get(comic.resourceURI, {
+              .get(baseUrl, {
                 params: {
                   endPoint: 'comic',
                   comicUrl: comic.resourceURI,
@@ -58,7 +58,7 @@ export const CharacterDetails = () => {
       setComicsTitle('Fetching comics...');
       handleGetHeroComics(result);
     } else {
-      setComicsTitle('No comics availabl');
+      setComicsTitle('No comics available');
     }
   }, [path]);
 
