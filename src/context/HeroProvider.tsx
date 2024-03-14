@@ -1,4 +1,4 @@
-import { useLocation } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 import React, {
   ReactNode,
   createContext,
@@ -144,11 +144,16 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
     if (path.includes('favorites')) {
       setShowFavoritesSearch(true);
       setSearchResults(favoriteHeroes);
+    } else if (path.includes('character') && !currentFavoriteHero) {
+      setShowCharacterDetails(false);
+      setShowFavoritesSearch(false);
+      navigate('/');
+      console.log('no hero selected');
     } else {
       setSearchResults(allHeroes);
       setShowFavoritesSearch(false);
     }
-  }, [path])
+  }, [path]);
 
   return (
     <HeroContext.Provider

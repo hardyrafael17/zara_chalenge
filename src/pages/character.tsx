@@ -11,15 +11,10 @@ export const CharacterDetails = () => {
   const baseUrl = process.env.GATSBY_MARVEL_API_URL;
   const path = useLocation().pathname;
 
-  useEffect(() => {
-    if (!result) {
-      navigate('/');
-    }
-  }, []);
-
   const handleGetHeroComics = async (hero: any) => {
     if (!result) return;
     setCurrentHeroComics([]);
+
     if (hero.comics.available > 0 && baseUrl) {
       hero.comics.items.forEach(
         async (comic: { resourceURI: any }, index: number) => {
@@ -32,6 +27,7 @@ export const CharacterDetails = () => {
                 },
               })
               .then((response) => {
+                console.log(response, 'response 0');
                 if (response.status === 200 && response.statusText === 'OK') {
                   if (response.data.data.code !== 200) {
                     throw new Error(
@@ -44,7 +40,7 @@ export const CharacterDetails = () => {
 
                   setCurrentHeroComics((prevState) => [...prevState, ...data]);
                 } else {
-                  console.log("Response", response) 
+                  console.log('Response', response);
                   throw new Error();
                 }
               })
@@ -129,7 +125,7 @@ export const CharacterDetails = () => {
           </div>
         </div>
       ) : (
-        <p>Ooops!</p>
+      <h1>No character selected, please return to main page by clicking on the logo</h1>
       )}
     </>
   );
