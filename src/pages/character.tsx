@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as styles from './character.module.css';
 import axios from 'axios';
 import { HeroContext } from '../context/HeroProvider';
-import { useLocation } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 
 export const CharacterDetails = () => {
   const result = useContext(HeroContext).currentFavoriteHero;
@@ -10,6 +10,12 @@ export const CharacterDetails = () => {
   const [comicsTitle, setComicsTitle] = useState<string>('');
   const baseUrl = process.env.GATSBY_MARVEL_API_URL;
   const path = useLocation().pathname;
+
+  useEffect(() => {
+    if (!result) {
+      navigate('/');
+    }
+  }, []);
 
   const handleGetHeroComics = async (hero: any) => {
     if (!result) return;
@@ -38,6 +44,7 @@ export const CharacterDetails = () => {
 
                   setCurrentHeroComics((prevState) => [...prevState, ...data]);
                 } else {
+                  console.log("Response", response) 
                   throw new Error();
                 }
               })
