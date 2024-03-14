@@ -19,11 +19,11 @@ export const CharacterDetails = () => {
         async (comic: { resourceURI: any }, index: number) => {
           if (index < 20)
             axios
-              .get(baseUrl, {
-                params: {
-                  endPoint: 'comic',
-                  comicUrl: comic.resourceURI,
-                },
+              .get(comic.resourceURI, {
+                // params: {
+                //   endPoint: 'comic',
+                //   comicUrl: comic.resourceURI,
+                // },
               })
               .then((response) => {
                 if (response.status === 200 && response.statusText === 'OK') {
