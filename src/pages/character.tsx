@@ -27,7 +27,6 @@ export const CharacterDetails = () => {
                 },
               })
               .then((response) => {
-                console.log(response, 'response 0');
                 if (response.status === 200) {
                   if (response.data.data.code !== 200) {
                     throw new Error(
@@ -40,7 +39,6 @@ export const CharacterDetails = () => {
 
                   setCurrentHeroComics((prevState) => [...prevState, ...data]);
                 } else {
-                  console.log('Response', response);
                   throw new Error();
                 }
               })

@@ -148,7 +148,6 @@ export const HeroProvider: React.FC<Props> = ({ children }) => {
       setShowCharacterDetails(false);
       setShowFavoritesSearch(false);
       navigate('/');
-      console.log('no hero selected');
     } else {
       setSearchResults(allHeroes);
       setShowFavoritesSearch(false);
